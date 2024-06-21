@@ -23,7 +23,9 @@
   ],
   "scripts": {
     "precommit": "grunt jshint",
-    "prepush": "grunt jshint"
+    "prepush": "grunt jshint",
+    "version": "grunt build && git add -A dist",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "dependencies": {},
   "devDependencies": {
