@@ -3,6 +3,7 @@
 * ---------------------
 * requires bootstrap-popover.js
 */
+/* globals bootstrap */
 (function ($) {
     "use strict";
 

@@ -4779,6 +4779,7 @@ Editableform based on Twitter Bootstrap 5
 * ---------------------
 * requires bootstrap-popover.js
 */
+/* globals bootstrap */
 (function ($) {
     "use strict";
 
