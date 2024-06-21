@@ -1,7 +1,7 @@
-/*! X-editable - v1.5.3 
+/*! x-editable-bs5 - v1.5.4 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
-* http://github.com/vitalets/x-editable
-* Copyright (c) 2018 Vitaliy Potapov; Licensed MIT */
+* http://github.com/kkozlik/x-editable
+* Copyright (c) 2024 Vitaliy Potapov; Licensed MIT */
 /**
 Form with single input element, two buttons and two states: normal/loading.
 Applied as jQuery method to DIV tag (not to form tag!). This is because form can be in loading state when spinner shown.
@@ -1109,7 +1109,7 @@ Applied as jQuery method.
             //if form already exist - delete previous data 
             if(this.$form) {
                 //todo: destroy prev data!
-                //this.$form.destroy();
+                this.$form.remove();
             }
 
             this.$form = $('<div>');

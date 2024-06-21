@@ -1,7 +1,7 @@
-/*! X-editable - v1.5.3 
+/*! x-editable-bs5 - v1.5.4 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
-* http://github.com/vitalets/x-editable
-* Copyright (c) 2018 Vitaliy Potapov; Licensed MIT */
+* http://github.com/kkozlik/x-editable
+* Copyright (c) 2024 Vitaliy Potapov; Licensed MIT */
 .editableform {
     margin-bottom: 0; /* overwrites bootstrap margin */
 }
@@ -34,6 +34,9 @@
    display: inline-block; /* should be inline to take effect of parent's white-space: nowrap */
    vertical-align: top;
    margin-left: 7px;
+   /* inline-block emulation for IE7*/
+   zoom: 1; 
+   *display: inline;
 }
 
 .editable-buttons.editable-buttons-bottom {
@@ -47,6 +50,9 @@
     display: inline-block; /* should be inline to take effect of parent's white-space: nowrap */
     width: auto; /* bootstrap-responsive has width: 100% that breakes layout */
     white-space: normal; /* reset white-space decalred in parent*/
+   /* display-inline emulation for IE7*/
+   zoom: 1; 
+   *display: inline;   
 }
 
 .editable-buttons .editable-cancel {
@@ -162,6 +168,9 @@
     display: inline-block; 
     vertical-align: middle;
     width: auto;
+    /* inline-block emulation for IE7*/
+    zoom: 1; 
+    *display: inline;    
 }
 
 .editable-container.ui-widget {

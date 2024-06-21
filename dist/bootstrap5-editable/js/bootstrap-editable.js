@@ -1,7 +1,7 @@
-/*! X-editable - v1.5.3 
+/*! x-editable-bs5 - v1.5.4 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
-* http://github.com/vitalets/x-editable
-* Copyright (c) 2018 Vitaliy Potapov; Licensed MIT */
+* http://github.com/kkozlik/x-editable
+* Copyright (c) 2024 Vitaliy Potapov; Licensed MIT */
 /**
 Form with single input element, two buttons and two states: normal/loading.
 Applied as jQuery method to DIV tag (not to form tag!). This is because form can be in loading state when spinner shown.
@@ -1029,13 +1029,12 @@ Applied as jQuery method.
             }
             //second, try `containerName`
             container = this.$element.data(this.containerName);
-            
             return container;
         },
 
         /* call native method of underlying container, e.g. this.$element.popover('method') */ 
         call: function() {
-            this.$element[this.containerName].apply(this.$element, arguments);
+            this.$element[this.containerName].apply(this.$element, arguments); 
         },        
         
         initContainer: function(){
@@ -4703,67 +4702,77 @@ $(function(){
 }(window.jQuery));
 
 /*
-Editableform based on Twitter Bootstrap 3
+Editableform based on Twitter Bootstrap 5
 */
 (function ($) {
     "use strict";
-    
+
     //store parent methods
     var pInitInput = $.fn.editableform.Constructor.prototype.initInput;
-    
+
     $.extend($.fn.editableform.Constructor.prototype, {
         initTemplate: function() {
-            this.$form = $($.fn.editableform.template); 
-            this.$form.find('.control-group').addClass('form-group');
+            this.$form = $($.fn.editableform.template);
+            this.$form.find('.control-group');
             this.$form.find('.editable-error-block').addClass('help-block');
         },
-        initInput: function() {  
+        initInput: function() {
             pInitInput.apply(this);
 
+            //for bs5 set default class `form-control-sm` to standard inputs
             var emptyInputClass = this.input.options.inputclass === null || this.input.options.inputclass === false;
             var defaultClass = 'form-control-sm';
-            
-            //bs3 add `form-control` class to standard inputs
-            var stdtypes = 'text,select,textarea,password,email,url,tel,number,range,time,typeaheadjs'.split(','); 
+
+            //bs5 add `form-control` class to standard inputs
+            var stdtypes = 'text,textarea,password,email,url,tel,number,range,time,typeaheadjs'.split(',');
             if(~$.inArray(this.input.type, stdtypes)) {
                 this.input.$input.addClass('form-control');
                 if(emptyInputClass) {
                     this.input.options.inputclass = defaultClass;
                     this.input.$input.addClass(defaultClass);
                 }
-            }             
-        
+            }
+
+            //bs5 add `form-select` class to select inputs
+            if(~$.inArray(this.input.type, ['select'])) {
+                this.input.$input.addClass('form-select');
+                if(emptyInputClass) {
+                    this.input.options.inputclass = 'form-select-sm';
+                    this.input.$input.addClass('form-select-sm');
+                }
+            }
+
             //apply size class also to buttons (to fit size of control)
             var $btn = this.$form.find('.editable-buttons');
             var classes = emptyInputClass ? [defaultClass] : this.input.options.inputclass.split(' ');
             for(var i=0; i<classes.length; i++) {
                 // `btn-sm` is default now
                 /*
-                if(classes[i].toLowerCase() === 'input-sm') { 
-                    $btn.find('button').addClass('btn-sm');  
+                if(classes[i].toLowerCase() === 'form-control-sm') {
+                    $btn.find('button').addClass('btn-sm');
                 }
                 */
-                if(classes[i].toLowerCase() === 'input-lg') {
-                    $btn.find('button').removeClass('btn-sm').addClass('btn-lg'); 
+                if(classes[i].toLowerCase() === 'form-control-lg') {
+                    $btn.find('button').removeClass('btn-sm').addClass('btn-lg');
                 }
             }
         }
-    });    
-    
+    });
+
     //buttons
-    $.fn.editableform.buttons = 
+    $.fn.editableform.buttons =
       '<button type="submit" class="btn btn-primary btn-sm editable-submit">'+
         '<i class="fa fa-check" aria-hidden="true"></i>'+
       '</button>'+
       '<button type="button" class="btn btn-default btn-sm editable-cancel">'+
         '<i class="fa fa-times" aria-hidden="true"></i>'+
-      '</button>';         
-    
+      '</button>';
+
     //error classes
     $.fn.editableform.errorGroupClass = 'has-error';
-    $.fn.editableform.errorBlockClass = null;  
+    $.fn.editableform.errorBlockClass = null;
     //engine
-    $.fn.editableform.engine = 'bs4';  
+    $.fn.editableform.engine = 'bs4';
 }(window.jQuery));
 /**
 * Editable Popover for Bootstrap 5 based on Popper.js
@@ -4779,7 +4788,7 @@ Editableform based on Twitter Bootstrap 3
         containerDataName: 'bs.popover',
         innerCss: '.popover-body',
         defaults: bootstrap.Popover.Default,
-        
+
         initContainer: function(){
             $.extend(this.containerOptions, {
                 trigger: 'manual',
@@ -4787,7 +4796,7 @@ Editableform based on Twitter Bootstrap 3
                 content: ' ',
                 template: this.defaults.template
             });
-            
+
             //as template property is used in inputs, hide it from popover
             var t;
             if(this.$element.data('template')) {
@@ -4796,49 +4805,49 @@ Editableform based on Twitter Bootstrap 3
             }
 
             this.call(this.containerOptions);
-            
+
             if(t) {
                 //restore data('template')
                 this.$element.data('template', t);
             }
         },
-        
+
         /* show */
         innerShow: function () {
             this.call('show');
         },
-        
+
         /* hide */
         innerHide: function () {
             this.call('hide');
         },
-        
+
         /* destroy */
         innerDestroy: function() {
             this.call('dispose');
         },
-        
+
         setContainerOption: function(key, value) {
             this.container().options[key] = value;
         },
-        
+
         setPosition: function () {
             (function() {}).call(this.container());
         },
-        
+
         call: function() {
             if ( ! $(this.$element).data(this.containerDataName)) {
                 $(this.$element).data(this.containerDataName, bootstrap[this.containerName.replace(this.containerName[0], this.containerName[0].toUpperCase())].getOrCreateInstance(this.$element, this.containerOptions));
             }
 
-            return this.$element[this.containerName].apply(this.$element, arguments); 
-        }, 
-        
+            return this.$element[this.containerName].apply(this.$element, arguments);
+        },
+
         tip: function() {
             return this.container() ? $(this.container().tip) : null;
         }
     });
-    
+
 }(window.jQuery));
 
 /* =========================================================
