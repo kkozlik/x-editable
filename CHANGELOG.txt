@@ -4,6 +4,7 @@ X-editable changelog
 Version 1.5.7
 -------------
 Fix outdated syntax for linear-gradient()
+Change handler for close container from 'click' to 'mousedown'
 
 Version 1.5.3 Nov 9, 2015
 ----------------------------
