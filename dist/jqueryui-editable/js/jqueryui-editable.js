@@ -1,4 +1,4 @@
-/*! x-editable-bs5 - v1.5.6 
+/*! x-editable-bs5 - v1.5.7 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 * http://github.com/kkozlik/x-editable
 * Copyright (c) 2024 Vitaliy Potapov; Licensed MIT */
