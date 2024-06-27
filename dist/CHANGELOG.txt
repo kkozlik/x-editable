@@ -3,7 +3,8 @@ X-editable changelog
 
 Version 1.5.8
 -------------
-New option 'inputsize' for bootstrap5 options
+New option 'inputsize' for bootstrap5 inputs
+Fix layout for dropdowns in bootstrap5
 
 Version 1.5.7
 -------------

@@ -1,0 +1,4 @@
+.editable-input .form-select{
+    width: auto; /* bootstrap-responsive has width: 100% that breakes layout */
+}
+

@@ -85,6 +85,7 @@ function getFiles() {
                 //inputs+'typeahead.js'
                 ],
             css: [
+                forms+'editable-form-bootstrap5.css',
                 inputs+'date/bootstrap-datepicker/css/datepicker.css'
                //don't build datetime lib, should be included manually
                //inputs+'datetime/bootstrap-datetimepicker/css/datetimepicker.css'

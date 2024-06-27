@@ -223,6 +223,11 @@ a.editable-click.editable-disabled:hover {
 }
 
 
+.editable-input .form-select{
+    width: auto; /* bootstrap-responsive has width: 100% that breakes layout */
+}
+
+
 /*!
  * Datepicker for Bootstrap
  *
