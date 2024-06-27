@@ -16,52 +16,38 @@ Editableform based on Twitter Bootstrap 5
         initInput: function() {
             pInitInput.apply(this);
 
-            //for bs5 set default class `form-control-sm` to standard inputs
-            var emptyInputClass = this.input.options.inputclass === null || this.input.options.inputclass === false;
-            var defaultClass = 'form-control-sm';
+            var inputSize = 'sm';
+
+            if (this.input.options.inputsize) { inputSize = this.input.options.inputsize; }
 
             //bs5 add `form-control` class to standard inputs
             var stdtypes = 'text,textarea,password,email,url,tel,number,range,time,typeaheadjs'.split(',');
             if(~$.inArray(this.input.type, stdtypes)) {
                 this.input.$input.addClass('form-control');
-                if(emptyInputClass) {
-                    this.input.options.inputclass = defaultClass;
-                    this.input.$input.addClass(defaultClass);
-                }
+                if (inputSize === 'sm') { this.input.$input.addClass('form-control-sm'); }
+                if (inputSize === 'lg') { this.input.$input.addClass('form-control-lg'); }
             }
 
             //bs5 add `form-select` class to select inputs
             if(~$.inArray(this.input.type, ['select'])) {
                 this.input.$input.addClass('form-select');
-                if(emptyInputClass) {
-                    this.input.options.inputclass = 'form-select-sm';
-                    this.input.$input.addClass('form-select-sm');
-                }
+                if (inputSize === 'sm') { this.input.$input.addClass('form-select-sm'); }
+                if (inputSize === 'lg') { this.input.$input.addClass('form-select-lg'); }
             }
 
             //apply size class also to buttons (to fit size of control)
             var $btn = this.$form.find('.editable-buttons');
-            var classes = emptyInputClass ? [defaultClass] : this.input.options.inputclass.split(' ');
-            for(var i=0; i<classes.length; i++) {
-                // `btn-sm` is default now
-                /*
-                if(classes[i].toLowerCase() === 'form-control-sm') {
-                    $btn.find('button').addClass('btn-sm');
-                }
-                */
-                if(classes[i].toLowerCase() === 'form-control-lg') {
-                    $btn.find('button').removeClass('btn-sm').addClass('btn-lg');
-                }
-            }
+            if (inputSize === 'sm') { $btn.find('button').addClass('btn-sm'); }
+            if (inputSize === 'lg') { $btn.find('button').addClass('btn-lg'); }
         }
     });
 
     //buttons
     $.fn.editableform.buttons =
-      '<button type="submit" class="btn btn-primary btn-sm editable-submit">'+
+      '<button type="submit" class="btn btn-primary editable-submit">'+
         '<i class="fa fa-check" aria-hidden="true"></i>'+
       '</button>'+
-      '<button type="button" class="btn btn-default btn-sm editable-cancel">'+
+      '<button type="button" class="btn btn-default editable-cancel">'+
         '<i class="fa fa-times" aria-hidden="true"></i>'+
       '</button>';
 

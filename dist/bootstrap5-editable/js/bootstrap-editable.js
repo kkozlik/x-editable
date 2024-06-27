@@ -2343,7 +2343,7 @@ To create your own input you can inherit from this class.
        /**
         Initializes input
 
-        @method init() 
+        @method init()
         **/
        init: function(type, options, defaults) {
            this.type = type;
@@ -2354,12 +2354,12 @@ To create your own input you can inherit from this class.
        this method called before render to init $tpl that is inserted in DOM
        */
        prerender: function() {
-           this.$tpl = $(this.options.tpl); //whole tpl as jquery object    
+           this.$tpl = $(this.options.tpl); //whole tpl as jquery object
            this.$input = this.$tpl;         //control itself, can be changed in render method
            this.$clear = null;              //clear button
-           this.error = null;               //error message, if input cannot be rendered           
+           this.error = null;               //error message, if input cannot be rendered
        },
-       
+
        /**
         Renders input from tpl. Can return jQuery deferred object.
         Can be overwritten in child objects
@@ -2368,10 +2368,10 @@ To create your own input you can inherit from this class.
        **/
        render: function() {
 
-       }, 
+       },
 
        /**
-        Sets element's html by value. 
+        Sets element's html by value.
 
         @method value2html(value, element)
         @param {mixed} value
@@ -2395,13 +2395,13 @@ To create your own input you can inherit from this class.
        /**
         Converts value to string (for internal compare). For submitting to server used value2submit().
 
-        @method value2str(value) 
+        @method value2str(value)
         @param {mixed} value
         @returns {string}
        **/
        value2str: function(value) {
            return String(value);
-       }, 
+       },
 
        /**
         Converts string received from server into value. Usually from `data-value` attribute.
@@ -2412,12 +2412,12 @@ To create your own input you can inherit from this class.
        **/
        str2value: function(str) {
            return str;
-       }, 
-       
+       },
+
        /**
         Converts value for submitting to server. Result can be string or object.
 
-        @method value2submit(value) 
+        @method value2submit(value)
         @param {mixed} value
         @returns {mixed}
        **/
@@ -2428,7 +2428,7 @@ To create your own input you can inherit from this class.
        /**
         Sets value of input.
 
-        @method value2input(value) 
+        @method value2input(value)
         @param {mixed} value
        **/
        value2input: function(value) {
@@ -2438,16 +2438,16 @@ To create your own input you can inherit from this class.
        /**
         Returns value of input. Value can be object (e.g. datepicker)
 
-        @method input2value() 
+        @method input2value()
        **/
-       input2value: function() { 
+       input2value: function() {
            return this.$input.val();
-       }, 
+       },
 
        /**
         Activates input. For text it sets focus.
 
-        @method activate() 
+        @method activate()
        **/
        activate: function() {
            if(this.$input.is(':visible')) {
@@ -2458,8 +2458,8 @@ To create your own input you can inherit from this class.
        /**
         Creates input.
 
-        @method clear() 
-       **/        
+        @method clear()
+       **/
        clear: function() {
            this.$input.val(null);
        },
@@ -2470,79 +2470,89 @@ To create your own input you can inherit from this class.
        escape: function(str) {
            return $('<div>').text(str).html();
        },
-       
+
        /**
         attach handler to automatically submit form when value changed (useful when buttons not shown)
        **/
        autosubmit: function() {
-        
+
        },
-       
+
        /**
-       Additional actions when destroying element 
+       Additional actions when destroying element
        **/
        destroy: function() {
        },
 
        // -------- helper functions --------
-       setClass: function() {          
+       setClass: function() {
            if(this.options.inputclass) {
-               this.$input.addClass(this.options.inputclass); 
-           } 
+               this.$input.addClass(this.options.inputclass);
+           }
        },
 
        setAttr: function(attr) {
            if (this.options[attr] !== undefined && this.options[attr] !== null) {
                this.$input.attr(attr, this.options[attr]);
-           } 
+           }
        },
-       
+
        option: function(key, value) {
             this.options[key] = value;
        }
-       
+
     };
-        
-    AbstractInput.defaults = {  
+
+    AbstractInput.defaults = {
         /**
         HTML template of input. Normally you should not change it.
 
-        @property tpl 
+        @property tpl
         @type string
         @default ''
-        **/   
+        **/
         tpl: '',
         /**
         CSS class automatically applied to input
-        
-        @property inputclass 
+
+        @property inputclass
         @type string
         @default null
-        **/         
+        **/
         inputclass: null,
-        
+
         /**
-        If `true` - html will be escaped in content of element via $.text() method.  
-        If `false` - html will not be escaped, $.html() used.  
+        Size of the input - implemented for bootstrap5 only
+        Allowed values 'sm', 'md', 'lg'
+
+        @property inputsize
+        @type string
+        @default null
+        **/
+        inputsize: null,
+
+        /**
+        If `true` - html will be escaped in content of element via $.text() method.
+        If `false` - html will not be escaped, $.html() used.
         When you use own `display` function, this option obviosly has no effect.
-        
-        @property escape 
+
+        @property escape
         @type boolean
         @since 1.5.0
         @default true
-        **/         
+        **/
         escape: true,
-                
+
         //scope for external methods (e.g. source defined as function)
         //for internal use only
         scope: null,
-        
+
         //need to re-declare showbuttons here to get it's value from common config (passed only options existing in defaults)
-        showbuttons: true 
+        showbuttons: true
     };
-    
+
     $.extend($.fn.editabletypes, {abstractinput: AbstractInput});
-        
+
 }(window.jQuery));
 
 /**
@@ -4719,52 +4729,38 @@ Editableform based on Twitter Bootstrap 5
         initInput: function() {
             pInitInput.apply(this);
 
-            //for bs5 set default class `form-control-sm` to standard inputs
-            var emptyInputClass = this.input.options.inputclass === null || this.input.options.inputclass === false;
-            var defaultClass = 'form-control-sm';
+            var inputSize = 'sm';
+
+            if (this.input.options.inputsize) { inputSize = this.input.options.inputsize; }
 
             //bs5 add `form-control` class to standard inputs
             var stdtypes = 'text,textarea,password,email,url,tel,number,range,time,typeaheadjs'.split(',');
             if(~$.inArray(this.input.type, stdtypes)) {
                 this.input.$input.addClass('form-control');
-                if(emptyInputClass) {
-                    this.input.options.inputclass = defaultClass;
-                    this.input.$input.addClass(defaultClass);
-                }
+                if (inputSize === 'sm') { this.input.$input.addClass('form-control-sm'); }
+                if (inputSize === 'lg') { this.input.$input.addClass('form-control-lg'); }
             }
 
             //bs5 add `form-select` class to select inputs
             if(~$.inArray(this.input.type, ['select'])) {
                 this.input.$input.addClass('form-select');
-                if(emptyInputClass) {
-                    this.input.options.inputclass = 'form-select-sm';
-                    this.input.$input.addClass('form-select-sm');
-                }
+                if (inputSize === 'sm') { this.input.$input.addClass('form-select-sm'); }
+                if (inputSize === 'lg') { this.input.$input.addClass('form-select-lg'); }
             }
 
             //apply size class also to buttons (to fit size of control)
             var $btn = this.$form.find('.editable-buttons');
-            var classes = emptyInputClass ? [defaultClass] : this.input.options.inputclass.split(' ');
-            for(var i=0; i<classes.length; i++) {
-                // `btn-sm` is default now
-                /*
-                if(classes[i].toLowerCase() === 'form-control-sm') {
-                    $btn.find('button').addClass('btn-sm');
-                }
-                */
-                if(classes[i].toLowerCase() === 'form-control-lg') {
-                    $btn.find('button').removeClass('btn-sm').addClass('btn-lg');
-                }
-            }
+            if (inputSize === 'sm') { $btn.find('button').addClass('btn-sm'); }
+            if (inputSize === 'lg') { $btn.find('button').addClass('btn-lg'); }
         }
     });
 
     //buttons
     $.fn.editableform.buttons =
-      '<button type="submit" class="btn btn-primary btn-sm editable-submit">'+
+      '<button type="submit" class="btn btn-primary editable-submit">'+
         '<i class="fa fa-check" aria-hidden="true"></i>'+
       '</button>'+
-      '<button type="button" class="btn btn-default btn-sm editable-cancel">'+
+      '<button type="button" class="btn btn-default editable-cancel">'+
         '<i class="fa fa-times" aria-hidden="true"></i>'+
       '</button>';
 

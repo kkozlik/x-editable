@@ -1,6 +1,10 @@
 X-editable changelog
 =============================
 
+Version 1.5.8
+-------------
+New option 'inputsize' for bootstrap5 options
+
 Version 1.5.7
 -------------
 Fix outdated syntax for linear-gradient()
