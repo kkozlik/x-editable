@@ -1,0 +1,144 @@
+<!-- header -->
+{{#with project}}
+<div class="hero-unit">
+    <h1>{{name}}</h1>
+    <p class="muted" style="font-size: 1.1em">In-place editing with <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap</a>, <a href="http://jqueryui.com" target="_blank">jQuery UI</a> or pure <a href="http://jquery.com" target="_blank">jQuery</a></p>
+    <p>This library allows you to create editable elements on your page. 
+        It can be used with any engine (bootstrap, jquery-ui, jquery only) and includes both <i>popup</i> and <i>inline</i> modes.
+        Please try out demo to see how it works. 
+    </p>
+    <div style="text-align: center">
+        <p>
+        <a class="btn btn-success btn-large" style="width: 150px" href="demo-bs3.html" target="_blank">Demo <span style="font-size: 0.8em">(new window)</span></a>
+        <a class="btn btn-primary btn-large" style="width: 150px" href="docs.html">Documentation</a>
+        </p>                    
+        <p><small class="muted">Current version {{version}} <a href="assets/x-editable/CHANGELOG.txt">changelog</a></small></p>
+        <p><a href="https://twitter.com/xeditable" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @xeditable</a></p>
+    </div>
+</div>    
+
+<div class="row">
+    <div class="span12">
+      <p style="text-align: center">↓ Exact build of x-editable depends on core library you want to use ↓</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span4">
+        <h2>Bootstrap <small>(2 or 3)</small></h2>
+        <p>Twitter Bootstrap has awesome <a href="http://getbootstrap.com/css/#forms" target="_blank">Form markup</a> and <a href="http://getbootstrap.com/javascript/#popovers" target="_blank">Popover plugin</a> allowing pretty in-place editing.
+        For <i>date</i> input it uses <a target="_blank" href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a>.
+        </p>
+    </div>
+    <div class="span4">
+        <h2>jQuery UI <small>(1.9+)</small></h2>
+        <p>Starting from jQuery UI 1.9 it has <a href="http://jqueryui.com/tooltip" target="_blank">Tooltip plugin</a>. 
+        In combination with <a href="http://jqueryui.com/button" target="_blank">Button widget</a> it is suitable enough for editable form and popup.
+        You can apply any theme of jQuery UI <a href="http://jqueryui.com/themeroller" target="_blank">Themeroller</a>.</p>
+    </div>
+    <div class="span4">
+        <h2>jQuery <small>(+ poshytip plugin)</small></h2>
+        <p>The simplest build of X-editable. For <i>inline mode</i> you need only jquery. For <i>popup mode</i> it uses <a href="http://vadikom.com/demos/poshytip" target="_blank">Poshytip plugin</a>.
+        For <i>datetime</i> fields you can use <a href="http://vitalets.github.com/combodate" target="_blank">combodate</a> type based on <a href="http://momentjs.com" target="_blank">momentjs</a>.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span4">
+        <p class="centered"><img src="assets/img/bootstrap.png"></p>
+        <p class="centered">
+          <a class="btn btn-primary" href="assets/zip/bootstrap3-editable-{{version}}.zip"><strong>Download</strong> BS3 build</a>
+          <a class="btn btn-primary" href="assets/zip/bootstrap-editable-{{version}}.zip">BS2 build</a>
+        </p>
+    </div>
+    <div class="span4">
+        <p class="centered"><img src="assets/img/jqueryui.png"></p>
+        <p class="centered"><a class="btn btn-primary" href="assets/zip/jqueryui-editable-{{version}}.zip"><strong>Download</strong> jquery-ui build</a></p>
+    </div>
+    <div class="span4">
+        <p class="centered"><img src="assets/img/jquery.png"></p>
+        <p class="centered"><a class="btn btn-primary" href="assets/zip/jquery-editable-{{version}}.zip"><strong>Download</strong> jquery build</a></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12 cdn">
+        <h4>Using CDN <small id="cdnver"></small> : 
+        <label><input type="radio" name="cdn-build" data-css="bootstrap3-editable/css/bootstrap-editable.css" data-js="bootstrap3-editable/js/bootstrap-editable.min.js">bootstrap 3</label>
+        <label><input type="radio" name="cdn-build" data-css="bootstrap-editable/css/bootstrap-editable.css" data-js="bootstrap-editable/js/bootstrap-editable.min.js">bootstrap 2</label>
+        <label><input type="radio" name="cdn-build" data-css="jqueryui-editable/css/jqueryui-editable.css" data-js="jqueryui-editable/js/jqueryui-editable.min.js">jquery-ui</label>
+        <label><input type="radio" name="cdn-build" data-css="jquery-editable/css/jquery-editable.css" data-js="jquery-editable/js/jquery-editable-poshytip.min.js">jquery</label>
+        </h4>
+        <pre class="prettyprint"></pre>
+        <div style="text-align: right"><span class="muted" style="font-size: 0.85em">Provided by <a href="http://cdnjs.com" target="_blank">cdnjs.com</a></span></div>
+    </div>
+ </div>
+{{/with}}
+
+<hr>
+
+<div class="row">
+    <div class="span4">
+        <h2 class="muted">Latest release</h2>
+        {{#mdb}}
+#### 1.5.1 (Nov 4, 2013)
+* support bootstrap popover = `auto`
+* `validate` method can change the value 
+* select2 tags mode fixed
+
+Thanks to everybody for support and reporting!
+        {{/mdb}}
+        <div style="margin-top: 20px">
+          <a href="https://github.com/vitalets/x-editable/wiki/Release-notes">Previous versions</a><br>
+          <a href="https://github.com/vitalets/x-editable/wiki/Roadmap">Roadmap</a><br>
+          <a href="faq.html#donation">Donation</a><br>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center">
+          <strong>For AngularJS projects consider</strong><br><br>
+          <a class="angular-xeditable" href="http://vitalets.github.io/angular-xeditable" target="_blank">Angular-xeditable</a>
+        </div>
+    </div>
+    <div class="span4">
+        <h2 class="muted">Features</h2>
+        <ul>
+            <li>popup and inline modes</li>
+            <li>supported inputs: 
+              <ul>
+               {{#each inputs}}
+               <li>{{name}}{{new ../project.version}}</li>
+               {{/each}}
+              </ul>
+            <li>client-side and server-side validation</li>
+            <li>customizible container placement</li>
+            <li>toggle by click, dblclick or manually</li>
+            <li>keyboard support (escape/enter/tab)</li>                            
+            <li>works in IE7+ and all modern browsers</li>                            
+            <li>unit tested</li>                            
+            <li>live events</li>                            
+        </ul>        
+    </div>
+    <div class="span4">
+        <h2 class="muted">Why editable?</h2>
+        <ul>
+            <li>fast development, no special FORM markup</li>
+            <li>less number of screens in your application</li>                            
+            <li>easy adding / removing fields</li>
+            <li>simple backend script for data update</li>
+            <li>more convenient on small forms</li>                            
+        </ul>
+        <br>
+        <h2 class="muted">Related projects</h2>
+        <ul>
+            <li><a href="http://vitalets.github.io/angular-xeditable" target="_blank">Angular-xeditable</a> <small>by <a href="https://github.com/vitalets">Vitalets</a></small></li>
+            <li><a href="http://x-editable.demopage.ru" target="_blank">X-editable for Yii</a> <small>by <a href="https://github.com/vitalets">Vitalets</a></small></li>
+            <li><a href="https://github.com/brianchance/knockout-x-editable" target="_blank">Knockout binding</a> <small>by <a href="https://github.com/brianchance">brianchance</a></small></li>
+            <li><a href="https://github.com/vitalets/x-editable/blob/gh-pages/backend-samples/php/laravel-controller.php" target="_blank">Laravel controller</a> <small>by <a href="https://github.com/clouddueling">Michael Calkins</a></small></li>
+            <li><a href="http://cspeerly.github.com/Simple-ConnectDB" target="_blank">Simple-ConnectDB</a> <small>by <a href="https://github.com/cspeerly">Chuck Speerly</a></small></li>
+            <li><a href="http://lightswitch05.github.io/filterable" target="_blank">Filterable</a> <small>by <a href="https://github.com/lightswitch05">lightswitch05</a></small></li>
+            <li><a href="https://github.com/nate-strauser/meteor-x-editable-bootstrap" target="_blank">meteor-x-editable</a> <small>by <a href="https://github.com/nate-strauser">nate-strauser</a></small></li>
+        </ul>
+    </div>
+</div>
+

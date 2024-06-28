@@ -1,0 +1,3046 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>X-editable :: In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery</title>
+        <!-- jquery -->
+        <script src="assets/jquery/jquery-1.9.1.min.js"></script>
+
+        <!-- bootstrap -->
+        <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">  
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+
+        <!-- prettify -->  
+        <link rel="stylesheet" href="assets/prettify/prettify-bootstrap.css">    
+        <script src="assets/prettify/prettify.js"></script> 
+
+        <!-- in docs page include bootstrap-editable for creating new record example -->
+        
+            <!-- mockjax -->
+            <script src="assets/mockjax/jquery.mockjax.js"></script>
+            
+            <link href="assets/x-editable/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+            <script src="assets/x-editable/bootstrap-editable/js/bootstrap-editable.js"></script>
+    <!--        <script src="assets/x-editable/bootstrap-editable/js/bootstrap-editable.min.js"></script>-->
+        
+        
+        <!-- main css -->  
+        <link rel="stylesheet" href="assets/main.css">     
+    </head>
+    <body>
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a href="index.html" class="brand">X-editable</a>
+            <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a target="_blank" href="demo-bs3.html">Demo</a></li>
+                <li class="active"><a href="docs.html">Docs</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="http://github.com/vitalets/x-editable">GitHub</a></li>
+            </ul>
+           
+            <div style="padding-top: 10px;">
+            <!-- twitter -->
+<div class="pull-right" style="width: 90px; margin-right: 20%">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://vitalets.github.com/x-editable" data-via="xeditable">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>            
+</div>
+
+<!-- facebook -->
+<div class="pull-right" style="width: 90px">
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=558710054143871";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<div style="vertical-align:top;zoom:1;*display:inline" class="fb-like" data-href="http://vitalets.github.com/x-editable" data-send="false" data-layout="button_count" data-width1="450" data-show-faces="false"></div>
+</div>
+
+<!-- google+ -->
+<div class="pull-right" style="width: 80px">
+<div class="g-plusone" data-size="medium" data-href="http://vitalets.github.com/x-editable"></div>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>   
+            </div>
+ 
+        </div>  
+    </div>
+</div> 
+
+        
+        
+            <div id="subnav" class="navbar navbar-fixed-top" style="margin-top: 40px">
+    <div class="navbar-inner">
+        <div class="container">
+        
+            <!-- button show when collapse --> 
+<!--            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" style="float: left">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>  -->      
+        
+                <ul class="nav">
+                    <li><a href="#gettingstarted">getting started</a></li>
+                    <li><a href="#editable">$().editable</a></li>
+                    <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">inputs <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                         
+                          <li><a href="#text">text</a></li>
+                         
+                          <li><a href="#textarea">textarea</a></li>
+                         
+                          <li><a href="#select">select</a></li>
+                         
+                          <li><a href="#date">date</a></li>
+                         
+                          <li><a href="#datetime">datetime</a></li>
+                         
+                          <li><a href="#dateui">dateui</a></li>
+                         
+                          <li><a href="#combodate">combodate</a></li>
+                         
+                          <li><a href="#html5types">html5types</a></li>
+                         
+                          <li><a href="#checklist">checklist</a></li>
+                         
+                          <li><a href="#wysihtml5">wysihtml5</a></li>
+                         
+                          <li><a href="#typeahead">typeahead</a></li>
+                         
+                          <li><a href="#typeaheadjs">typeaheadjs</a></li>
+                         
+                          <li><a href="#select2">select2</a></li>
+                         
+                      </ul>
+                    </li>
+                    <li><a href="#global">global templates</a></li>
+                    <li><a href="#newrecord">creating new record</a></li>
+                    <li><a href="#backend">backend samples</a></li>
+                    <li><a href="#diagram">class diagram</a></li>                
+                </ul>
+        </div>  
+    </div>
+</div>
+        
+
+        <div class="container">
+        
+            <div class="row">
+    <div class="span12">
+        <section id="gettingstarted">
+            <h1>Getting started</h1> 
+            <ol>
+<li>Decide which core library you want to use: 
+<ul>
+<li><strong>Bootstrap</strong></li>
+<li><strong>jQuery UI</strong></li>
+<li><strong>only jQuery (+ Poshytip)</strong></li>
+</ul>
+<br>
+<p>Include it on your page. Examples below are for <i>bootstrap</i>:</p> 
+<pre class="prettyprint linenums">&lt;link href=&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;http://code.jquery.com/jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt; 
+&lt;script src=&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;</pre>
+</li>
+<li>Download corresponding X-editable build and include it on your page:<br>
+<pre class="prettyprint linenums">&lt;link href=&quot;bootstrap-editable/css/bootstrap-editable.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;bootstrap-editable/js/bootstrap-editable.js&quot;&gt;&lt;/script&gt;</pre>
+<div class="alert alert-warning"><b>Note to include x-editable <u>after core library</u> (bootstrap, jquery-ui)!</b></div>
+</li>
+<li>Markup elements that should be editable. Usually it is <code>&lt;A&gt;</code> element with additional <code>data-*</code> attributes
+<pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;username&quot; data-type=&quot;text&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Enter username&quot;&gt;superuser&lt;/a&gt;</pre>
+Main attributes you should define are:
+<ul>
+<li><code>type</code> - type of input (text, textarea, select, etc)</li>
+<li><code>url</code> - url to server-side script to process submitted value (<code>/post</code>, <code>post.php</code> etc)</li>
+<li><code>pk</code> - primary key of record to be updated (ID in db)</li>
+<li><code>id</code> or <code>name</code> - name of field to be updated (column in db). Taken from <code>id</code> or <code>data-name</code> attribute</li>
+<li><code>value</code> - initial value. Usefull for select, where value is integer key of text to be shown. If <i>empty</i> - will be taken from element html contents</li>
+</ul>
+<br>
+</li>
+<li>Setup editable mode: <strong>inline</strong> or <strong>popup</strong> (default)
+<pre class="prettyprint linenums">//turn to inline mode
+$.fn.editable.defaults.mode = &#x27;inline&#x27;;</pre>
+</li>
+<li>Apply <strong>editable()</strong> method to these elements
+<pre class="prettyprint linenums">$(document).ready(function() {
+    $(&#x27;#username&#x27;).editable();
+});</pre>                                               
+Alternatively, you can set all options via javascript
+<pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;username&quot;&gt;superuser&lt;/a&gt;</pre>
+<pre class="prettyprint linenums">$(&#x27;#username&#x27;).editable({
+    type: &#x27;text&#x27;,
+    pk: 1,
+    url: &#x27;/post&#x27;,
+    title: &#x27;Enter username&#x27;
+});</pre>                                                          
+</li>
+<li>Frontend ready!<br>
+<p>
+<a href="starter" class="btn btn-primary" target="_blank">View starter template</a>
+<a href="assets/x-editable_starter.zip" class="btn btn-success">Download starter zip</a>
+</p>
+<p>
+Open your page and click on element. Enter new value and submit form. It will send ajax request with new value to <code>/post</code>.<br>
+Request contains <code>name</code>, <code>value</code> and <code>pk</code> of record to be updated:<br><br>
+<pre class="prettyprint linenums">POST /post
+{
+    name:  &#x27;username&#x27;,  //name of field (column in db)
+    pk:    1            //primary key (record id)
+    value: &#x27;superuser!&#x27; //new value
+}</pre>
+</p>
+</li>
+<li>Write backend part:<br>
+X-editable has no limitation to server-side part: you can write it on any language you prefer.<br>
+For example, you want to validate submitted value on server:
+<ul> 
+<li>If value is <span style="color: green">valid</span>, you should return <strong>HTTP status 200 OK</strong>. Element on page will be updated automatically. No response body required.</li>
+<li>If value is <span style="color: red">not valid</span>, you should return <strong>HTTP status != 200</strong> (e.g. <i>400 Bad request</i>) with error message in response body. Element on page will not be updated and editable form will display error message.</li>
+</ul>
+<br>
+Default request method is <strong>POST</strong>, you can change it via <i>defaults</i> config:<br>
+<pre class="prettyprint linenums">$.fn.editable.defaults.ajaxOptions = {type: &quot;PUT&quot;};</pre>
+
+<strong>JSON response:</strong><br>
+If your server returns JSON, you can always send HTTP status 200 with error flag in response body.<br>
+To process it use <code>success</code> handler:<br>
+<pre class="prettyprint linenums">//assume server response: 200 Ok {status: &#x27;error&#x27;, msg: &#x27;field cannot be empty!&#x27;}
+
+$(&#x27;#username&#x27;).editable({
+    ...
+    success: function(response, newValue) {
+        if(response.status == &#x27;error&#x27;) return response.msg; //msg will be shown in editable form
+    }
+});</pre>
+<br>
+<strong>Work LOCALLY:</strong><br>
+If you don't want to send value on server, just keep empty <code>url</code> option. You can process value in <code>success</code> handler:
+<pre class="prettyprint linenums">$(&#x27;#username&#x27;).editable({
+    type: &#x27;text&#x27;,
+    title: &#x27;Enter username&#x27;,
+    success: function(response, newValue) {
+        userModel.set(&#x27;username&#x27;, newValue); //update backbone model
+    }
+});</pre>  
+</li>
+</ol>
+        </section>
+        <hr>
+        <section id="editable">
+            <h1>$().editable(options)</h1>
+            <p>Makes editable any HTML element on the page. Applied as jQuery method.</p>
+            
+            <ul class="nav nav-tabs" id="editable-tabs">
+    <li class="active"><a href="#editable-options" data-toggle="tab">Options</a></li>
+    <li><a href="#editable-methods" data-toggle="tab">Methods</a></li>
+    <li><a href="#editable-events" data-toggle="tab">Events</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="editable-options">
+        <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+
+Please see also <a href="#inputs">input dependent options</a>.<br>
+Additionally, you can use core options of popup from their docs: <a href="http://getbootstrap.com/javascript/#popovers">bootstrap-popover</a>, <a href="http://api.jqueryui.com/tooltip">jquery-ui-tooltip</a>.
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>ajaxOptions <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.1.1</span></div></td>
+            <td>object</td>
+            <td>null</td>
+            <td><p>Additional options for submit ajax request.
+List of values: <a href="http://api.jquery.com/jQuery.ajax">http://api.jquery.com/jQuery.ajax</a></p>
+
+            
+                <pre class="prettyprint linenums">ajaxOptions: {
+    type: &#x27;put&#x27;,
+    dataType: &#x27;json&#x27;
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>anim </td>
+            <td>string</td>
+            <td>false</td>
+            <td><p>Animation speed (inline mode only)</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>autotext </td>
+            <td>string</td>
+            <td>&#x27;auto&#x27;</td>
+            <td><p>Allows to automatically set element&#39;s text based on it&#39;s value. Can be <code>auto|always|never</code>. Useful for select and date.
+For example, if dropdown list is <code>{1: &#39;a&#39;, 2: &#39;b&#39;}</code> and element&#39;s value set to <code>1</code>, it&#39;s html will be automatically set to <code>&#39;a&#39;</code>.<br><code>auto</code> - text will be automatically set only if element is empty.<br><code>always|never</code> - always(never) try to set element&#39;s text.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>defaultValue <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.6</span></div></td>
+            <td>string|object</td>
+            <td>null</td>
+            <td><p>Value that will be displayed in input if original field value is empty (<code>null|undefined|&#39;&#39;</code>).</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>disabled </td>
+            <td>boolean</td>
+            <td>false</td>
+            <td><p>Sets disabled state of editable</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>display <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.2.0</span></div></td>
+            <td>function|boolean</td>
+            <td>null</td>
+            <td><p>Callback to perform custom displaying of value in element&#39;s text.<br>If <code>null</code>, default input&#39;s display used.<br>If <code>false</code>, no displaying methods will be called, element&#39;s text will never change.<br>Runs under element&#39;s scope.<br><em><strong>Parameters:</strong></em>  
+
+</p>
+<ul>
+<li><code>value</code> current value to be displayed</li>
+<li><code>response</code> server response (if display called after ajax submit), since 1.4.0</li>
+</ul>
+<p>For <em>inputs with source</em> (select, checklist) parameters are different:  
+
+</p>
+<ul>
+<li><code>value</code> current value to be displayed</li>
+<li><code>sourceData</code> array of items for current input (e.g. dropdown items) </li>
+<li><code>response</code> server response (if display called after ajax submit), since 1.4.0</li>
+</ul>
+<p>To get currently selected items use <code>$.fn.editableutils.itemsByValue(value, sourceData)</code>.</p>
+
+            
+                <pre class="prettyprint linenums">display: function(value, sourceData) {
+   //display checklist as comma-separated values
+   var html = [],
+       checked = $.fn.editableutils.itemsByValue(value, sourceData);
+       
+   if(checked.length) {
+       $.each(checked, function(i, v) { html.push($.fn.editableutils.escape(v.text)); });
+       $(this).html(html.join(&#x27;, &#x27;));
+   } else {
+       $(this).empty(); 
+   }
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>emptyclass <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.1</span></div></td>
+            <td>string</td>
+            <td>editable-empty</td>
+            <td><p>Css class applied when editable text is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>emptytext </td>
+            <td>string</td>
+            <td>&#x27;Empty&#x27;</td>
+            <td><p>Text shown when element is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>error <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.4</span></div></td>
+            <td>function</td>
+            <td>null</td>
+            <td><p>Error callback. Called when request failed (response status != 200).<br>Usefull when you want to parse error response and display a custom message.
+Must return <strong>string</strong> - the message to be displayed in the error block.</p>
+
+            
+                <pre class="prettyprint linenums">error: function(response, newValue) {
+    if(response.status === 500) {
+        return &#x27;Service unavailable. Please try later.&#x27;;
+    } else {
+        return response.responseText;
+    }
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>highlight <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.5</span></div></td>
+            <td>string|boolean</td>
+            <td>#FFFF80</td>
+            <td><p>Color used to highlight element after update. Implemented via CSS3 transition, works in modern browsers.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>mode <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.0</span></div></td>
+            <td>string</td>
+            <td>&#x27;popup&#x27;</td>
+            <td><p>Mode of editable, can be <code>popup</code> or <code>inline</code></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>name </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Name of field. Will be submitted on server. Can be taken from <code>id</code> attribute</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>onblur <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.1.1</span></div></td>
+            <td>string</td>
+            <td>&#x27;cancel&#x27;</td>
+            <td><p>Action when user clicks outside the container. Can be <code>cancel|submit|ignore</code>.<br>Setting <code>ignore</code> allows to have several containers open.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>params </td>
+            <td>object|function</td>
+            <td>null</td>
+            <td><p>Additional params for submit. If defined as <code>object</code> - it is <strong>appended</strong> to original ajax data (pk, name and value).<br>If defined as <code>function</code> - returned object <strong>overwrites</strong> original ajax data.</p>
+
+            
+                <pre class="prettyprint linenums">params: function(params) {
+    //originally params contain pk, name and value
+    params.a = 1;
+    return params;
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>pk </td>
+            <td>string|object|function</td>
+            <td>null</td>
+            <td><p>Primary key of editable object (e.g. record id in database). For composite keys use object, e.g. <code>{id: 1, lang: &#39;en&#39;}</code>.
+Can be calculated dynamically via function.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placement </td>
+            <td>string</td>
+            <td>&#x27;top&#x27;</td>
+            <td><p>Placement of container relative to element. Can be <code>top|right|bottom|left</code>. Not used for inline container.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>savenochange <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.2.0</span></div></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td><p>Whether to save or cancel value when it was not changed but form was submitted</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>selector <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.1</span></div></td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>If selector is provided, editable will be delegated to the specified targets.<br>Usefull for dynamically generated DOM elements.<br><strong>Please note</strong>, that delegated targets can&#39;t be initialized with <code>emptytext</code> and <code>autotext</code> options, 
+as they actually become editable only after first click.<br>You should manually set class <code>editable-click</code> to these elements.<br>Also, if element originally empty you should add class <code>editable-empty</code>, set <code>data-value=&quot;&quot;</code> and write emptytext into element:</p>
+
+            
+                <pre class="prettyprint linenums">&lt;div id=&quot;user&quot;&gt;
+  &lt;!-- empty --&gt;
+  &lt;a href=&quot;#&quot; data-name=&quot;username&quot; data-type=&quot;text&quot; class=&quot;editable-click editable-empty&quot; data-value=&quot;&quot; title=&quot;Username&quot;&gt;Empty&lt;/a&gt;
+  &lt;!-- non-empty --&gt;
+  &lt;a href=&quot;#&quot; data-name=&quot;group&quot; data-type=&quot;select&quot; data-source=&quot;/groups&quot; data-value=&quot;1&quot; class=&quot;editable-click&quot; title=&quot;Group&quot;&gt;Operator&lt;/a&gt;
+&lt;/div&gt;     
+
+&lt;script&gt;
+$(&#x27;#user&#x27;).editable({
+    selector: &#x27;a&#x27;,
+    url: &#x27;/post&#x27;,
+    pk: 1
+});
+&lt;/script&gt;</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>send </td>
+            <td>string</td>
+            <td>&#x27;auto&#x27;</td>
+            <td><p>Strategy for sending data on server. Can be <code>auto|always|never</code>.
+When &#39;auto&#39; data will be sent on server <strong>only if pk and url defined</strong>, otherwise new value will be stored locally.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>showbuttons <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.1.1</span></div></td>
+            <td>boolean|string</td>
+            <td>true</td>
+            <td><p>Where to show buttons: left(true)|bottom|false<br>Form without buttons is auto-submitted.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>success </td>
+            <td>function</td>
+            <td>null</td>
+            <td><p>Success callback. Called when value successfully sent on server and <strong>response status = 200</strong>.<br>Usefull to work with json response. For example, if your backend response can be <code>{success: true}</code>
+or <code>{success: false, msg: &quot;server error&quot;}</code> you can check it inside this callback.<br>If it returns <strong>string</strong> - means error occured and string is shown as error message.<br>If it returns <strong>object like</strong> <code>{newValue: &lt;something&gt;}</code> - it overwrites value, submitted by user.<br>Otherwise newValue simply rendered into element.</p>
+
+            
+                <pre class="prettyprint linenums">success: function(response, newValue) {
+    if(!response.success) return response.msg;
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>toggle </td>
+            <td>string</td>
+            <td>&#x27;click&#x27;</td>
+            <td><p>How to toggle editable. Can be <code>click|dblclick|mouseenter|manual</code>.<br>When set to <code>manual</code> you should manually call <code>show/hide</code> methods of editable.<br><strong>Note</strong>: if you call <code>show</code> or <code>toggle</code> inside <strong>click</strong> handler of some DOM element, 
+you need to apply <code>e.stopPropagation()</code> because containers are being closed on any click on document.</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#edit-button&#x27;).click(function(e) {
+    e.stopPropagation();
+    $(&#x27;#username&#x27;).editable(&#x27;toggle&#x27;);
+});</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>type </td>
+            <td>string</td>
+            <td>&#x27;text&#x27;</td>
+            <td><p>Type of input. Can be <code>text|textarea|select|date|checklist</code> and more</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>unsavedclass <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.1</span></div></td>
+            <td>string</td>
+            <td>editable-unsaved</td>
+            <td><p>Css class applied when value was stored but not sent to server (<code>pk</code> is empty or <code>send = &#39;never&#39;</code>).<br>You may set it to <code>null</code> if you work with editables locally and submit them together.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>url </td>
+            <td>string|function</td>
+            <td>null</td>
+            <td><p>Url for submit, e.g. <code>&#39;/post&#39;</code><br>If function - it will be called instead of ajax. Function should return deferred object to run fail/done callbacks.</p>
+
+            
+                <pre class="prettyprint linenums">url: function(params) {
+    var d = new $.Deferred();
+    if(params.value === &#x27;abc&#x27;) {
+        return d.reject(&#x27;error message&#x27;); //returning error via deferred object
+    } else {
+        //async saving data in js model
+        someModel.asyncSaveMethod({
+           ..., 
+           success: function(){
+              d.resolve();
+           }
+        }); 
+        return d.promise();
+    }
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>validate </td>
+            <td>function</td>
+            <td>null</td>
+            <td><p>Function for client-side validation. If returns string - means validation not passed and string showed as error.
+Since 1.5.1 you can modify submitted value by returning object from <code>validate</code>: 
+<code>{newValue: &#39;...&#39;}</code> or <code>{newValue: &#39;...&#39;, msg: &#39;...&#39;}</code></p>
+
+            
+                <pre class="prettyprint linenums">validate: function(value) {
+    if($.trim(value) == &#x27;&#x27;) {
+        return &#x27;This field is required&#x27;;
+    }
+}</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>value </td>
+            <td>mixed</td>
+            <td>element&#x27;s text</td>
+            <td><p>Initial value of input. If not set, taken from element&#39;s text.<br>Note, that if element&#39;s text is empty - text is automatically generated from value and can be customized (see <code>autotext</code> option).<br>For example, to display currency sign:</p>
+
+            
+                <pre class="prettyprint linenums">&lt;a id=&quot;price&quot; data-type=&quot;text&quot; data-value=&quot;100&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(&#x27;#price&#x27;).editable({
+    ...
+    display: function(value) {
+      $(this).text(value + &#x27;$&#x27;);
+    } 
+}) 
+&lt;/script&gt;</pre>
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="editable-methods">
+        <p>All methods can be called as <code>$().editable('method', params);</code></p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 20%;">Method</th>
+            <th style="width: 20%;">Parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>$().editable(options) </td>
+            <td>
+<ul>
+    
+    <li><strong>options</strong> <i>Object</i> 
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>jQuery method to initialize editable element.</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username&#x27;).editable({
+    type: &#x27;text&#x27;,
+    url: &#x27;/post&#x27;,
+    pk: 1
+});</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>activate() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Activates input of visible container (e.g. set focus)</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>destroy() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Removes editable feature from element</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>disable() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Disables editable</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>enable() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Enables editable</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>getValue() </td>
+            <td>
+<ul>
+    
+    <li><strong>isSingle</strong> <i>Bool</i> whether to return just value of single element
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Returns current values of editable elements.<br>Note that it returns an <strong>object</strong> with name-value pairs, not a value itself. It allows to get data from several elements.<br>If value of some editable is <code>null</code> or <code>undefined</code> it is excluded from result object.
+When param <code>isSingle</code> is set to <strong>true</strong> - it is supposed you have single element and will return value of editable instead of object.</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username, #fullname&#x27;).editable(&#x27;getValue&#x27;);
+//result:
+{
+username: &quot;superuser&quot;,
+fullname: &quot;John&quot;
+}
+//isSingle = true
+$(&#x27;#username&#x27;).editable(&#x27;getValue&#x27;, true);
+//result &quot;superuser&quot;</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>hide() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Hides container with form</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>option(key, value) </td>
+            <td>
+<ul>
+    
+    <li><strong>key</strong> <i>String|object</i> option name or object with several options
+        
+    </li>
+    
+    <li><strong>value</strong> <i>Mixed</i> option new value
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Sets new option</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;.editable&#x27;).editable(&#x27;option&#x27;, &#x27;pk&#x27;, 2);</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>setValue(value, convertStr) </td>
+            <td>
+<ul>
+    
+    <li><strong>value</strong> <i>Mixed</i> new value
+        
+    </li>
+    
+    <li><strong>convertStr</strong> <i>Boolean</i> whether to convert value from string to internal format
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Sets new value of editable</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>show() </td>
+            <td>
+<ul>
+    
+    <li><strong>closeAll</strong> <i>Boolean</i> Whether to close all other editable containers when showing this one. Default true.
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Shows container with form</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>submit(options) </td>
+            <td>
+<ul>
+    
+    <li><strong>options</strong> <i>Object</i> 
+        
+        <ul type="circle" style="margin-left: 20px">
+            
+            <li><strong>url</strong> <i>Object</i> url to submit data
+            
+            <li><strong>data</strong> <i>Object</i> additional data to submit
+            
+            <li><strong>ajaxOptions</strong> <i>Object</i> additional ajax options
+            
+            <li><strong>error(obj)</strong> <i>Function</i> error handler
+            
+            <li><strong>success(obj,config)</strong> <i>Function</i> success handler
+            
+        </ul>
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>This method collects values from several editable elements and submit them all to server.<br>Internally it runs client-side validation for all fields and submits only in case of success.<br>See <a href="#newrecord">creating new records</a> for details.<br>Since 1.5.1 <code>submit</code> can be applied to single element to send data programmatically. In that case
+<code>url</code>, <code>success</code> and <code>error</code> is taken from initial options and you can just call <code>$(&#39;#username&#39;).editable(&#39;submit&#39;)</code>.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>toggle() </td>
+            <td>
+<ul>
+    
+    <li><strong>closeAll</strong> <i>Boolean</i> Whether to close all other editable containers when showing this one. Default true.
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Toggles container visibility (show / hide)</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>toggleDisabled() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Toggles enabled / disabled state of editable element</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>validate() </td>
+            <td>
+<i>none</i>
+
+</td>
+            <td><p>Runs client-side validation for all matched editables</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username, #fullname&#x27;).editable(&#x27;validate&#x27;);
+// possible result:
+{
+  username: &quot;username is required&quot;,
+  fullname: &quot;fullname should be minimum 3 letters length&quot;
+}</pre>
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="editable-events">
+        <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10%;">Event</th>
+            <th style="width: 30%;">Callback parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>hidden </td>
+            <td>
+<ul>
+    
+    <li><strong>event</strong> <i>Object</i> event object
+        
+    </li>
+    
+    <li><strong>reason</strong> <i>String</i> Reason caused hiding. Can be <code>save|cancel|onblur|nochange|manual</code>
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Fired when container was hidden. It occurs on both save or cancel.<br><strong>Note:</strong> Bootstrap popover has own <code>hidden</code> event that now cannot be separated from x-editable&#39;s one.
+The workaround is to check <code>arguments.length</code> that is always <code>2</code> for x-editable.</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username&#x27;).on(&#x27;hidden&#x27;, function(e, reason) {
+    if(reason === &#x27;save&#x27; || reason === &#x27;cancel&#x27;) {
+        //auto-open next editable
+        $(this).closest(&#x27;tr&#x27;).next().find(&#x27;.editable&#x27;).editable(&#x27;show&#x27;);
+    } 
+});</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>init <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.2.0</span></div></td>
+            <td>
+<ul>
+    
+    <li><strong>event</strong> <i>Object</i> event object
+        
+    </li>
+    
+    <li><strong>editable</strong> <i>Object</i> editable instance (as here it cannot accessed via data('editable'))
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Fired when element was initialized by <code>$().editable()</code> method. 
+Please note that you should setup <code>init</code> handler <strong>before</strong> applying <code>editable</code>.</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username&#x27;).on(&#x27;init&#x27;, function(e, editable) {
+    alert(&#x27;initialized &#x27; + editable.options.name);
+});
+$(&#x27;#username&#x27;).editable();</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>save </td>
+            <td>
+<ul>
+    
+    <li><strong>event</strong> <i>Object</i> event object
+        
+    </li>
+    
+    <li><strong>params</strong> <i>Object</i> additional params
+        
+        <ul type="circle" style="margin-left: 20px">
+            
+            <li><strong>newValue</strong> <i>Mixed</i> submitted value
+            
+            <li><strong>response</strong> <i>Object</i> ajax response
+            
+        </ul>
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Fired when new value was submitted. You can use <code>$(this).data(&#39;editable&#39;)</code> to access to editable instance</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username&#x27;).on(&#x27;save&#x27;, function(e, params) {
+    alert(&#x27;Saved value: &#x27; + params.newValue);
+});</pre>
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>shown </td>
+            <td>
+<ul>
+    
+    <li><strong>event</strong> <i>Object</i> event object
+        
+    </li>
+    
+</ul>
+
+</td>
+            <td><p>Fired when container is shown and form is rendered (for select will wait for loading dropdown options).<br><strong>Note:</strong> Bootstrap popover has own <code>shown</code> event that now cannot be separated from x-editable&#39;s one.
+The workaround is to check <code>arguments.length</code> that is always <code>2</code> for x-editable.</p>
+
+            
+                <pre class="prettyprint linenums">$(&#x27;#username&#x27;).on(&#x27;shown&#x27;, function(e, editable) {
+    editable.input.$input.val(&#x27;overwriting value of input..&#x27;);
+});</pre>
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+</div>
+            
+
+            <div class="alert alert-success">
+                <strong>Note:</strong> you can modify <code>$.fn.editable.defaults</code> to set default options for all editable elements on the page.<br>
+                For example, to force all elements submit via <strong>PUT</strong> method: <code>$.fn.editable.defaults.ajaxOptions = {type: "put"}</code>
+            </div>
+        </section>
+        <hr>
+        <section id="inputs">
+            <h1>Inputs</h1>
+            <p>There are several <i>input types</i> supported by library. Each type may have additional configuration options.<br>
+            Input options are defined as well as other parameters of <code>$().editable()</code> method.<br>
+            Currently supported:
+            </p> 
+            <ul>
+            
+            <li>text</li>
+            
+            <li>textarea</li>
+            
+            <li>select</li>
+            
+            <li>date</li>
+            
+            <li>datetime</li>
+            
+            <li>dateui</li>
+            
+            <li>combodate</li>
+            
+            <li>html5types</li>
+            
+            <li>checklist</li>
+            
+            <li>wysihtml5</li>
+            
+            <li>typeahead</li>
+            
+            <li>typeaheadjs</li>
+            
+            <li>select2</li>
+                   
+            </ul>
+        </section> 
+                   
+        
+         <section id="text">
+            <h2>text</h2>
+            <p><p>Text input</p>
+
+               
+            </p>
+            <ul class="nav nav-tabs" id="text-tabs">
+    <li class="active"><a href="#text-options" data-toggle="tab">Options</a></li>
+    <li><a href="#text-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="text-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>Whether to show <code>clear</code> button</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placeholder </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Placeholder attribute of input. Shown when input is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;input type=&quot;text&quot;&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="text-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;username&quot; data-type=&quot;text&quot; data-pk=&quot;1&quot;&gt;awesome&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#username&#x27;).editable({
+        url: &#x27;/post&#x27;,
+        title: &#x27;Enter username&#x27;
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="textarea">
+            <h2>textarea</h2>
+            <p><p>Textarea input</p>
+
+               
+            </p>
+            <ul class="nav nav-tabs" id="textarea-tabs">
+    <li class="active"><a href="#textarea-options" data-toggle="tab">Options</a></li>
+    <li><a href="#textarea-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="textarea-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>input-large</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placeholder </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Placeholder attribute of input. Shown when input is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>rows </td>
+            <td>integer</td>
+            <td>7</td>
+            <td><p>Number of rows in textarea</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;textarea&gt;&lt;/textarea&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="textarea-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;comments&quot; data-type=&quot;textarea&quot; data-pk=&quot;1&quot;&gt;awesome comment!&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#comments&#x27;).editable({
+        url: &#x27;/post&#x27;,
+        title: &#x27;Enter comments&#x27;,
+        rows: 10
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="select">
+            <h2>select</h2>
+            <p><p>Select (dropdown)</p>
+
+               
+            </p>
+            <ul class="nav nav-tabs" id="select-tabs">
+    <li class="active"><a href="#select-options" data-toggle="tab">Options</a></li>
+    <li><a href="#select-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="select-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>prepend </td>
+            <td>string | array | object | function</td>
+            <td>false</td>
+            <td><p>Data automatically prepended to the beginning of dropdown list.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>source </td>
+            <td>string | array | object | function</td>
+            <td>null</td>
+            <td><p>Source data for list.<br>If <strong>array</strong> - it should be in format: <code>[{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}, ...]</code><br>For compability, object format is also supported: <code>{&quot;1&quot;: &quot;text1&quot;, &quot;2&quot;: &quot;text2&quot; ...}</code> but it does not guarantee elements order.
+
+</p>
+<p>If <strong>string</strong> - considered ajax url to load items. In that case results will be cached for fields with the same source and name. See also <code>sourceCache</code> option.
+
+</p>
+<p>If <strong>function</strong>, it should return data in format above (since 1.4.0).
+
+</p>
+<p>Since 1.4.1 key <code>children</code> supported to render OPTGROUP (for <strong>select</strong> input only).<br><code>[{text: &quot;group1&quot;, children: [{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}]}, ...]</code></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceCache <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.2.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>if <code>true</code> and source is <strong>string url</strong> - results will be cached for fields with the same source.<br>Usefull for editable column in grid to prevent extra requests.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceError </td>
+            <td>string</td>
+            <td>Error when loading list</td>
+            <td><p>Error message when list cannot be loaded (e.g. ajax error)</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceOptions <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>object|function</td>
+            <td>null</td>
+            <td><p>Additional ajax options to be used in $.ajax() when loading list from server.
+Useful to send extra parameters (<code>data</code> key) or change request method (<code>type</code> key).</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;select&gt;&lt;/select&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="select-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;status&quot; data-type=&quot;select&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Select status&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#status&#x27;).editable({
+        value: 2,    
+        source: [
+              {value: 1, text: &#x27;Active&#x27;},
+              {value: 2, text: &#x27;Blocked&#x27;},
+              {value: 3, text: &#x27;Deleted&#x27;}
+           ]
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="date">
+            <h2>date</h2>
+            <p><p>Bootstrap-datepicker.<br>Description and examples: <a href="https://github.com/eternicode/bootstrap-datepicker">https://github.com/eternicode/bootstrap-datepicker</a>.<br>For <strong>i18n</strong> you should include js file from here: <a href="https://github.com/eternicode/bootstrap-datepicker/tree/master/js/locales">https://github.com/eternicode/bootstrap-datepicker/tree/master/js/locales</a>
+and set <code>language</code> option.<br>Since 1.4.0 date has different appearance in <strong>popup</strong> and <strong>inline</strong> modes.</p>
+
+               
+            </p>
+            <ul class="nav nav-tabs" id="date-tabs">
+    <li class="active"><a href="#date-options" data-toggle="tab">Options</a></li>
+    <li><a href="#date-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="date-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean|string</td>
+            <td>&#x27;x clear&#x27;</td>
+            <td><p>Text shown as clear date button. 
+If <code>false</code> clear button will not be rendered.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>datepicker </td>
+            <td>object</td>
+            <td>{
+    weekStart: 0,
+    startView: 0,
+    minViewMode: 0,
+    autoclose: false
+}</td>
+            <td><p>Configuration of datepicker.
+Full list of options: <a href="http://bootstrap-datepicker.readthedocs.org/en/latest/options.html">http://bootstrap-datepicker.readthedocs.org/en/latest/options.html</a></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>format </td>
+            <td>string</td>
+            <td>yyyy-mm-dd</td>
+            <td><p>Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+Possible tokens are: <code>d, dd, m, mm, yy, yyyy</code></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;div&gt;&lt;/div&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>viewformat </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Format used for displaying date. Also applied when converting date from element&#39;s text on init.<br>If not specified equals to <code>format</code></p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="date-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;dob&quot; data-type=&quot;date&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Select date&quot;&gt;15/05/1984&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#dob&#x27;).editable({
+        format: &#x27;yyyy-mm-dd&#x27;,    
+        viewformat: &#x27;dd/mm/yyyy&#x27;,    
+        datepicker: {
+                weekStart: 1
+           }
+        });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="datetime">
+            <h2>datetime</h2>
+            <p><p>Bootstrap-datetimepicker.<br>Based on <a href="https://github.com/smalot/bootstrap-datetimepicker">smalot bootstrap-datetimepicker plugin</a>. 
+Before usage you should manually include dependent js and css:
+
+</p>
+<pre><code>&lt;link href=&quot;css/datetimepicker.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;&lt;/link&gt; 
+&lt;script src=&quot;js/bootstrap-datetimepicker.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>For <strong>i18n</strong> you should include js file from here: <a href="https://github.com/smalot/bootstrap-datetimepicker/tree/master/js/locales">https://github.com/smalot/bootstrap-datetimepicker/tree/master/js/locales</a>
+and set <code>language</code> option.</p>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.4</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="datetime-tabs">
+    <li class="active"><a href="#datetime-options" data-toggle="tab">Options</a></li>
+    <li><a href="#datetime-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="datetime-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean|string</td>
+            <td>&#x27;x clear&#x27;</td>
+            <td><p>Text shown as clear date button. 
+If <code>false</code> clear button will not be rendered.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>datetimepicker </td>
+            <td>object</td>
+            <td>{ }</td>
+            <td><p>Configuration of datetimepicker.
+Full list of options: <a href="https://github.com/smalot/bootstrap-datetimepicker">https://github.com/smalot/bootstrap-datetimepicker</a></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>format </td>
+            <td>string</td>
+            <td>yyyy-mm-dd hh:ii</td>
+            <td><p>Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+Possible tokens are: <code>d, dd, m, mm, yy, yyyy, h, i</code></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;div&gt;&lt;/div&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>viewformat </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Format used for displaying date. Also applied when converting date from element&#39;s text on init.<br>If not specified equals to <code>format</code></p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="datetime-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;last_seen&quot; data-type=&quot;datetime&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; title=&quot;Select date &amp; time&quot;&gt;15/03/2013 12:45&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#last_seen&#x27;).editable({
+        format: &#x27;yyyy-mm-dd hh:ii&#x27;,    
+        viewformat: &#x27;dd/mm/yyyy hh:ii&#x27;,    
+        datetimepicker: {
+                weekStart: 1
+           }
+        }
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="dateui">
+            <h2>dateui</h2>
+            <p><p>jQuery UI Datepicker.<br>Description and examples: <a href="http://jqueryui.com/datepicker">http://jqueryui.com/datepicker</a>.<br>This input is also accessible as <strong>date</strong> type. Do not use it together with <strong>bootstrap-datepicker</strong> as both apply <code>$().datepicker()</code> method.<br>For <strong>i18n</strong> you should include js file from here: <a href="https://github.com/jquery/jquery-ui/tree/master/ui/i18n">https://github.com/jquery/jquery-ui/tree/master/ui/i18n</a>.</p>
+
+               
+            </p>
+            <ul class="nav nav-tabs" id="dateui-tabs">
+    <li class="active"><a href="#dateui-options" data-toggle="tab">Options</a></li>
+    <li><a href="#dateui-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="dateui-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean|string</td>
+            <td>&#x27;x clear&#x27;</td>
+            <td><p>Text shown as clear date button. 
+If <code>false</code> clear button will not be rendered.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>datepicker </td>
+            <td>object</td>
+            <td>{
+   firstDay: 0, 
+   changeYear: true, 
+   changeMonth: true
+}</td>
+            <td><p>Configuration of datepicker.
+Full list of options: <a href="http://api.jqueryui.com/datepicker">http://api.jqueryui.com/datepicker</a></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>format </td>
+            <td>string</td>
+            <td>yyyy-mm-dd</td>
+            <td><p>Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+Full list of tokens: <a href="http://docs.jquery.com/UI/Datepicker/formatDate">http://docs.jquery.com/UI/Datepicker/formatDate</a></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;div&gt;&lt;/div&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>viewformat </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Format used for displaying date. Also applied when converting date from element&#39;s text on init.<br>If not specified equals to <code>format</code></p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="dateui-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;dob&quot; data-type=&quot;date&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Select date&quot;&gt;15/05/1984&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#dob&#x27;).editable({
+        format: &#x27;yyyy-mm-dd&#x27;,    
+        viewformat: &#x27;dd/mm/yyyy&#x27;,    
+        datepicker: {
+                firstDay: 1
+           }
+        }
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="combodate">
+            <h2>combodate</h2>
+            <p><p>Combodate input - dropdown date and time picker.<br>Based on <a href="http://vitalets.github.com/combodate">combodate</a> plugin (included). To use it you should manually include <a href="http://momentjs.com">momentjs</a>.
+
+</p>
+<pre><code>&lt;script src=&quot;js/moment.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Allows to input:
+
+</p>
+<ul>
+<li>only date</li>
+<li>only time </li>
+<li>both date and time  </li>
+</ul>
+<p>Please note, that format is taken from momentjs and <strong>not compatible</strong> with bootstrap-datepicker / jquery UI datepicker.<br>Internally value stored as <code>momentjs</code> object.</p>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.0</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="combodate-tabs">
+    <li class="active"><a href="#combodate-options" data-toggle="tab">Options</a></li>
+    <li><a href="#combodate-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="combodate-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>combodate </td>
+            <td>object</td>
+            <td>null</td>
+            <td><p>Configuration of combodate.
+Full list of options: <a href="http://vitalets.github.com/combodate/#docs">http://vitalets.github.com/combodate/#docs</a></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>format </td>
+            <td>string</td>
+            <td>YYYY-MM-DD</td>
+            <td><p>Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+See list of tokens in <a href="http://momentjs.com/docs/#/parsing/string-format">momentjs docs</a></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>template </td>
+            <td>string</td>
+            <td>D / MMM / YYYY</td>
+            <td><p>Template used for displaying dropdowns.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;input type=&quot;text&quot;&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>viewformat </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Format used for displaying date. Also applied when converting date from element&#39;s text on init.<br>If not specified equals to <code>format</code>.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="combodate-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;dob&quot; data-type=&quot;combodate&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-value=&quot;1984-05-15&quot; data-title=&quot;Select date&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#dob&#x27;).editable({
+        format: &#x27;YYYY-MM-DD&#x27;,    
+        viewformat: &#x27;DD.MM.YYYY&#x27;,    
+        template: &#x27;D / MMMM / YYYY&#x27;,    
+        combodate: {
+                minYear: 2000,
+                maxYear: 2015,
+                minuteStep: 1
+           }
+        }
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="html5types">
+            <h2>html5types</h2>
+            <p><p>HTML5 input types.
+Following types are supported:
+
+</p>
+<ul>
+<li>password</li>
+<li>email</li>
+<li>url</li>
+<li>tel</li>
+<li>number</li>
+<li>range</li>
+<li>time</li>
+</ul>
+<p>Learn more about html5 inputs:<br><a href="http://www.w3.org/wiki/HTML5_form_additions">http://www.w3.org/wiki/HTML5_form_additions</a><br>To check browser compatibility please see:<br><a href="https://developer.mozilla.org/en-US/docs/HTML/Element/Input">https://developer.mozilla.org/en-US/docs/HTML/Element/Input</a></p>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.3.0</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="html5types-tabs">
+    <li class="active"><a href="#html5types-options" data-toggle="tab">Options</a></li>
+    <li><a href="#html5types-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="html5types-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>Whether to show <code>clear</code> button</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placeholder </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Placeholder attribute of input. Shown when input is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>depends on type</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="html5types-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;email&quot; data-type=&quot;email&quot; data-pk=&quot;1&quot;&gt;admin@example.com&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#email&#x27;).editable({
+        url: &#x27;/post&#x27;,
+        title: &#x27;Enter email&#x27;
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="checklist">
+            <h2>checklist</h2>
+            <p><p>List of checkboxes. 
+Internally value stored as javascript array of values.</p>
+
+               
+            </p>
+            <ul class="nav nav-tabs" id="checklist-tabs">
+    <li class="active"><a href="#checklist-options" data-toggle="tab">Options</a></li>
+    <li><a href="#checklist-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="checklist-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>prepend </td>
+            <td>string | array | object | function</td>
+            <td>false</td>
+            <td><p>Data automatically prepended to the beginning of dropdown list.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>separator </td>
+            <td>string</td>
+            <td>&#x27;,&#x27;</td>
+            <td><p>Separator of values when reading from <code>data-value</code> attribute</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>source </td>
+            <td>string | array | object | function</td>
+            <td>null</td>
+            <td><p>Source data for list.<br>If <strong>array</strong> - it should be in format: <code>[{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}, ...]</code><br>For compability, object format is also supported: <code>{&quot;1&quot;: &quot;text1&quot;, &quot;2&quot;: &quot;text2&quot; ...}</code> but it does not guarantee elements order.
+
+</p>
+<p>If <strong>string</strong> - considered ajax url to load items. In that case results will be cached for fields with the same source and name. See also <code>sourceCache</code> option.
+
+</p>
+<p>If <strong>function</strong>, it should return data in format above (since 1.4.0).
+
+</p>
+<p>Since 1.4.1 key <code>children</code> supported to render OPTGROUP (for <strong>select</strong> input only).<br><code>[{text: &quot;group1&quot;, children: [{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}]}, ...]</code></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceCache <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.2.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>if <code>true</code> and source is <strong>string url</strong> - results will be cached for fields with the same source.<br>Usefull for editable column in grid to prevent extra requests.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceError </td>
+            <td>string</td>
+            <td>Error when loading list</td>
+            <td><p>Error message when list cannot be loaded (e.g. ajax error)</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceOptions <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>object|function</td>
+            <td>null</td>
+            <td><p>Additional ajax options to be used in $.ajax() when loading list from server.
+Useful to send extra parameters (<code>data</code> key) or change request method (<code>type</code> key).</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;div&gt;&lt;/div&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="checklist-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;options&quot; data-type=&quot;checklist&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Select options&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#options&#x27;).editable({
+        value: [2, 3],    
+        source: [
+              {value: 1, text: &#x27;option1&#x27;},
+              {value: 2, text: &#x27;option2&#x27;},
+              {value: 3, text: &#x27;option3&#x27;}
+           ]
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="wysihtml5">
+            <h2>wysihtml5</h2>
+            <p><p>Bootstrap wysihtml5 editor. Based on <a href="https://github.com/jhollingworth/bootstrap-wysihtml5">bootstrap-wysihtml5</a>.<br>You should include <strong>manually</strong> distributives of <code>wysihtml5</code> and <code>bootstrap-wysihtml5</code>:
+</p>
+          <h5>If you are Bootstrap 2</h5>
+<pre><code>&lt;link href=&quot;js/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;&lt;/link&gt;  
+&lt;script src=&quot;js/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0.min.js&quot;&gt;&lt;/script&gt;  
+&lt;script src=&quot;js/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>And also include <code>wysihtml5-0.0.2.js</code> from <code>inputs-ext</code> directory of x-editable:
+</p>
+<pre><code>&lt;script src=&quot;js/inputs-ext/wysihtml5/wysihtml5-0.0.2.js&quot;&gt;&lt;/script&gt;  </code></pre>
+          <h5>or you are Bootstrap 3</h5>
+<pre><code>&lt;link href=&quot;js/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.3/bootstrap-wysihtml5-0.0.3.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;&lt;/link&gt;  
+&lt;script src=&quot;js/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.3/wysihtml5-0.3.0.min.js&quot;&gt;&lt;/script&gt;  
+&lt;script src=&quot;js/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.3/bootstrap-wysihtml5-0.0.3.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>And also include <code>wysihtml5-0.0.3.js</code> from <code>inputs-ext</code> directory of x-editable:
+</p>
+<pre><code>&lt;script src=&quot;js/inputs-ext/wysihtml5/wysihtml5-0.0.3.js&quot;&gt;&lt;/script&gt;  </code></pre>
+
+<p><strong>Note:</strong> It&#39;s better to use fresh bootstrap-wysihtml5 from it&#39;s <a href="https://github.com/jhollingworth/bootstrap-wysihtml5/tree/master/src">master branch</a> as there is update for correct image insertion.</p>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.0</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="wysihtml5-tabs">
+    <li class="active"><a href="#wysihtml5-options" data-toggle="tab">Options</a></li>
+    <li><a href="#wysihtml5-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="wysihtml5-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>editable-wysihtml5</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placeholder </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Placeholder attribute of input. Shown when input is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;textarea&gt;&lt;/textarea&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>wysihtml5 </td>
+            <td>object</td>
+            <td>{stylesheets: false}</td>
+            <td><p>Wysihtml5 default options.<br>See <a href="https://github.com/jhollingworth/bootstrap-wysihtml5#options">https://github.com/jhollingworth/bootstrap-wysihtml5#options</a></p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="wysihtml5-example">
+     <pre class="prettyprint linenums">&lt;div id=&quot;comments&quot; data-type=&quot;wysihtml5&quot; data-pk=&quot;1&quot;&gt;&lt;h2&gt;awesome&lt;/h2&gt; comment!&lt;/div&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#comments&#x27;).editable({
+        url: &#x27;/post&#x27;,
+        title: &#x27;Enter comments&#x27;
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="typeahead">
+            <h2>typeahead</h2>
+            <p><p>Typeahead input (bootstrap 2 only). Based on Twitter Bootstrap 2 <a href="http://getbootstrap.com/2.3.2/javascript.html#typeahead">typeahead</a>.<br>Depending on <code>source</code> format typeahead operates in two modes:
+
+</p>
+<ul>
+<li><p><strong>strings</strong>:<br>When <code>source</code> defined as array of strings, e.g. <code>[&#39;text1&#39;, &#39;text2&#39;, &#39;text3&#39; ...]</code>.<br>User can submit one of these strings or any text entered in input (even if it is not matching source).</p>
+</li>
+<li><p><strong>objects</strong>:<br>When <code>source</code> defined as array of objects, e.g. <code>[{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}, ...]</code>.<br>User can submit only values that are in source (otherwise <code>null</code> is submitted). This is more like <em>dropdown</em> behavior.</p>
+</li>
+</ul>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.1</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="typeahead-tabs">
+    <li class="active"><a href="#typeahead-options" data-toggle="tab">Options</a></li>
+    <li><a href="#typeahead-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="typeahead-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>Whether to show <code>clear</code> button</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>prepend </td>
+            <td>string | array | object | function</td>
+            <td>false</td>
+            <td><p>Data automatically prepended to the beginning of dropdown list.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>source </td>
+            <td>string | array | object | function</td>
+            <td>null</td>
+            <td><p>Source data for list.<br>If <strong>array</strong> - it should be in format: <code>[{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}, ...]</code><br>For compability, object format is also supported: <code>{&quot;1&quot;: &quot;text1&quot;, &quot;2&quot;: &quot;text2&quot; ...}</code> but it does not guarantee elements order.
+
+</p>
+<p>If <strong>string</strong> - considered ajax url to load items. In that case results will be cached for fields with the same source and name. See also <code>sourceCache</code> option.
+
+</p>
+<p>If <strong>function</strong>, it should return data in format above (since 1.4.0).
+
+</p>
+<p>Since 1.4.1 key <code>children</code> supported to render OPTGROUP (for <strong>select</strong> input only).<br><code>[{text: &quot;group1&quot;, children: [{value: 1, text: &quot;text1&quot;}, {value: 2, text: &quot;text2&quot;}]}, ...]</code></p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceCache <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.2.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>if <code>true</code> and source is <strong>string url</strong> - results will be cached for fields with the same source.<br>Usefull for editable column in grid to prevent extra requests.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceError </td>
+            <td>string</td>
+            <td>Error when loading list</td>
+            <td><p>Error message when list cannot be loaded (e.g. ajax error)</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>sourceOptions <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>object|function</td>
+            <td>null</td>
+            <td><p>Additional ajax options to be used in $.ajax() when loading list from server.
+Useful to send extra parameters (<code>data</code> key) or change request method (<code>type</code> key).</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;input type=&quot;text&quot;&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>typeahead </td>
+            <td>object</td>
+            <td>null</td>
+            <td><p>Configuration of typeahead. <a href="http://getbootstrap.com/2.3.2/javascript.html#typeahead">Full list of options</a>.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="typeahead-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;country&quot; data-type=&quot;typeahead&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Input country&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#country&#x27;).editable({
+        value: &#x27;ru&#x27;,    
+        source: [
+              {value: &#x27;gb&#x27;, text: &#x27;Great Britain&#x27;},
+              {value: &#x27;us&#x27;, text: &#x27;United States&#x27;},
+              {value: &#x27;ru&#x27;, text: &#x27;Russia&#x27;}
+           ]
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="typeaheadjs">
+            <h2>typeaheadjs</h2>
+            <p><p>Typeahead.js input, based on <a href="http://twitter.github.io/typeahead.js">Twitter Typeahead</a>.<br>It is mainly replacement of typeahead in Bootstrap 3.</p>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="typeaheadjs-tabs">
+    <li class="active"><a href="#typeaheadjs-options" data-toggle="tab">Options</a></li>
+    <li><a href="#typeaheadjs-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="typeaheadjs-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>clear </td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>Whether to show <code>clear</code> button</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placeholder </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Placeholder attribute of input. Shown when input is empty.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;input type=&quot;text&quot;&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>typeahead </td>
+            <td>object</td>
+            <td>null</td>
+            <td><p>Configuration of typeahead itself. 
+<a href="https://github.com/twitter/typeahead.js#dataset">Full list of options</a>.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="typeaheadjs-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;country&quot; data-type=&quot;typeaheadjs&quot; data-pk=&quot;1&quot; data-url=&quot;/post&quot; data-title=&quot;Input country&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    $(&#x27;#country&#x27;).editable({
+        value: &#x27;ru&#x27;,
+        typeahead: {
+            name: &#x27;country&#x27;,
+            local: [
+                {value: &#x27;ru&#x27;, tokens: [&#x27;Russia&#x27;]}, 
+                {value: &#x27;gb&#x27;, tokens: [&#x27;Great Britain&#x27;]}, 
+                {value: &#x27;us&#x27;, tokens: [&#x27;United States&#x27;]}
+            ],
+            template: function(item) {
+                return item.tokens[0] + &#x27; (&#x27; + item.value + &#x27;)&#x27;; 
+            } 
+        }
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+        
+         <section id="select2">
+            <h2>select2</h2>
+            <p><p>Select2 input. Based on amazing work of Igor Vaynberg <a href="https://github.com/ivaynberg/select2">https://github.com/ivaynberg/select2</a>.<br>Please see <a href="http://ivaynberg.github.com/select2">original select2 docs</a> for detailed description and options.  
+
+</p>
+<p>You should manually download and include select2 distributive:  
+
+</p>
+<pre><code>&lt;link href=&quot;select2/select2.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;&lt;/link&gt;  
+&lt;script src=&quot;select2/select2.js&quot;&gt;&lt;/script&gt;  </code></pre>
+<p>To make it <strong>bootstrap-styled</strong> you can use css from <a href="https://github.com/t0m/select2-bootstrap-css">here</a>: 
+
+</p>
+<pre><code>&lt;link href=&quot;select2-bootstrap.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;&lt;/link&gt;    </code></pre>
+<p><strong>Note:</strong> currently <code>autotext</code> feature does not work for select2 with <code>ajax</code> remote source.<br>You need initially put both <code>data-value</code> and element&#39;s text youself:    
+
+</p>
+<pre><code>&lt;a href=&quot;#&quot; data-type=&quot;select2&quot; data-value=&quot;1&quot;&gt;Text1&lt;/a&gt;</code></pre>
+
+               <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.4.1</span></div>
+            </p>
+            <ul class="nav nav-tabs" id="select2-tabs">
+    <li class="active"><a href="#select2-options" data-toggle="tab">Options</a></li>
+    <li><a href="#select2-example" data-toggle="tab">Example</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="select2-options">
+      <p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+ 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>escape <div style="text-align: left"><span class="muted" style="font-size: 0.8em">since 1.5.0</span></div></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td><p>If <code>true</code> - html will be escaped in content of element via $.text() method.<br>If <code>false</code> - html will not be escaped, $.html() used.<br>When you use own <code>display</code> function, this option obviosly has no effect.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>inputclass </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>CSS class automatically applied to input</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>placeholder </td>
+            <td>string</td>
+            <td>null</td>
+            <td><p>Placeholder attribute of select</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>select2 </td>
+            <td>object</td>
+            <td>null</td>
+            <td><p>Configuration of select2. <a href="http://ivaynberg.github.com/select2">Full list of options</a>.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>source </td>
+            <td>array|string|function</td>
+            <td>null</td>
+            <td><p>Source data for select. It will be assigned to select2 <code>data</code> property and kept here just for convenience.
+Please note, that format is different from simple <code>select</code> input: use &#39;id&#39; instead of &#39;value&#39;.
+E.g. <code>[{id: 1, text: &quot;text1&quot;}, {id: 2, text: &quot;text2&quot;}, ...]</code>.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>tpl </td>
+            <td>string</td>
+            <td>&lt;input type=&quot;hidden&quot;&gt;</td>
+            <td><p>HTML template of input. Normally you should not change it.</p>
+
+            
+            </td>
+        </tr> 
+       
+        <tr>
+            <td>viewseparator </td>
+            <td>string</td>
+            <td>&#x27;, &#x27;</td>
+            <td><p>Separator used to display tags.</p>
+
+            
+            </td>
+        </tr> 
+                                    
+    </tbody>
+</table>
+    </div>
+    <div class="tab-pane" id="select2-example">
+     <pre class="prettyprint linenums">&lt;a href=&quot;#&quot; id=&quot;country&quot; data-type=&quot;select2&quot; data-pk=&quot;1&quot; data-value=&quot;ru&quot; data-url=&quot;/post&quot; data-title=&quot;Select country&quot;&gt;&lt;/a&gt;
+&lt;script&gt;
+$(function(){
+    //local source
+    $(&#x27;#country&#x27;).editable({
+        source: [
+              {id: &#x27;gb&#x27;, text: &#x27;Great Britain&#x27;},
+              {id: &#x27;us&#x27;, text: &#x27;United States&#x27;},
+              {id: &#x27;ru&#x27;, text: &#x27;Russia&#x27;}
+           ],
+        select2: {
+           multiple: true
+        }
+    });
+    //remote source (simple)
+    $(&#x27;#country&#x27;).editable({
+        source: &#x27;/getCountries&#x27;,
+        select2: {
+            placeholder: &#x27;Select Country&#x27;,
+            minimumInputLength: 1
+        }
+    });
+    //remote source (advanced)
+    $(&#x27;#country&#x27;).editable({
+        select2: {
+            placeholder: &#x27;Select Country&#x27;,
+            allowClear: true,
+            minimumInputLength: 3,
+            id: function (item) {
+                return item.CountryId;
+            },
+            ajax: {
+                url: &#x27;/getCountries&#x27;,
+                dataType: &#x27;json&#x27;,
+                data: function (term, page) {
+                    return { query: term };
+                },
+                results: function (data, page) {
+                    return { results: data };
+                }
+            },
+            formatResult: function (item) {
+                return item.CountryName;
+            },
+            formatSelection: function (item) {
+                return item.CountryName;
+            },
+            initSelection: function (element, callback) {
+                return $.get(&#x27;/getCountryById&#x27;, { query: element.val() }, function (data) {
+                    callback(data);
+                });
+            } 
+        }  
+    });
+});
+&lt;/script&gt;</pre>
+    </div>
+</div>
+            </section>
+                    
+
+        <hr>
+        <section id="global">
+            <h1>Global templates</h1>
+            <p>Some templates are defined globally and affect all editable inputs. You can overwrite it for your needs.</p>
+
+<h4>$.fn.editableform.template</h4>
+<p>Form template. Must contain <code>FORM</code> tag and classes <code>.control-group</code>, <code>.editable-input</code>, <code>.editable-buttons</code>, <code>.editable-error-block</code>.<br>
+Default value:</p>
+
+<pre class="prettyprint linenums">&lt;form class=&quot;form-inline editableform&quot;&gt;
+    &lt;div class=&quot;control-group&quot;&gt;
+         &lt;div&gt;&lt;div class=&quot;editable-input&quot;&gt;&lt;/div&gt;&lt;div class=&quot;editable-buttons&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+         &lt;div class=&quot;editable-error-block&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt; 
+&lt;/form&gt;</pre>
+
+<h4>$.fn.editableform.buttons</h4>
+<p>Buttons template. Automatically inserted into <code>.editable-buttons</code>. Must contain classes <code>.editable-submit</code> and <code>.editable-cancel</code>.<br>
+Default value:</p>
+<pre class="prettyprint linenums">&lt;button type=&quot;submit&quot; class=&quot;editable-submit&quot;&gt;ok&lt;/button&gt;
+&lt;button type=&quot;button&quot; class=&quot;editable-cancel&quot;&gt;cancel&lt;/button&gt;</pre>
+      
+<h4>$.fn.editableform.loading</h4>
+<p>Loading DIV template. Default value:</p>
+<pre class="prettyprint linenums">&lt;div class=&quot;editableform-loading&quot;&gt;&lt;/div&gt;</pre>
+
+        </section>         
+        
+        <hr>
+        <section id="newrecord">
+            <h1>Creating new record</h1>
+            <p>
+    Creating <strong>new record</strong> is a bit problem for editable interface because primary key (record id) is yet <i>unknown</i> and in-place-editing has no related object on backend.
+    In that case element will store new value inside and will not submit anything to server until you do it manually. 
+    Such behavior applied when <code>send</code> option is <code>'never'</code> or <code>send='auto'</code> and <code>pk</code> is empty.
+    To submit manually several editable fields use <code>submit()</code> method. Try example below to see how it works.
+</p>
+
+<script src="assets/newrecord.js"></script>         
+
+<h4>Live example - creating new record:</h4>
+<div style="width: 40%">
+    <div id="msg" class="alert hide"></div>
+    <table id="user" class="table table-bordered table-striped">
+        <tbody> 
+            <tr>         
+                <td width="40%">Username</td>
+                <td><a href="#" class="myeditable" id="new_username" data-type="text" data-name="username" data-original-title="Enter username"></a></td>
+            </tr>
+            <tr>         
+                <td>First name</td>
+                <td><a href="#" class="myeditable" data-type="text" data-name="firstname" data-original-title="Enter firstname"></a></td>
+            </tr>  
+            <tr>         
+                <td>Group</td>
+                <td><a href="#" class="myeditable" data-type="select" data-name="group" data-source="/groups" data-original-title="Select group"></a></td>
+            </tr>     
+            <tr>         
+                <td>Date of birth</td>
+                <td><a href="#" class="myeditable" data-type="date" data-name="dob" data-viewformat="dd/mm/yyyy" data-original-title="Select Date of birth"></a></td>
+            </tr>  
+            <tr>         
+                <td>Comments</td>
+                <td><a href="#" class="myeditable" data-type="textarea" data-name="comments" data-original-title="Enter comments"></a></td>
+            </tr> 
+        </tbody>
+    </table>
+    <div>
+    <button id="save-btn" class="btn btn-primary">Save new user!</button>
+    <button id="reset-btn" class="btn pull-right">Reset</button>
+    </div>
+</div>  
+
+<br>
+<p>How it works:</p>
+<p>Initialization performed without <code>pk</code> option:</p>
+<pre class="prettyprint linenums">//init editables 
+$(&#x27;.myeditable&#x27;).editable({
+    url: &#x27;/post&#x27; //this url will not be used for creating new user, it is only for update
+});
+
+//make username required
+$(&#x27;#new_username&#x27;).editable(&#x27;option&#x27;, &#x27;validate&#x27;, function(v) {
+    if(!v) return &#x27;Required field!&#x27;;
+});
+
+//automatically show next editable
+$(&#x27;.myeditable&#x27;).on(&#x27;save.newuser&#x27;, function(){
+    var that = this;
+    setTimeout(function() {
+        $(that).closest(&#x27;tr&#x27;).next().find(&#x27;.myeditable&#x27;).editable(&#x27;show&#x27;);
+    }, 200);
+});</pre>
+
+ <p>When you enter data first time - nothing sent to server, but all values are stored.<br>
+ When you click on save button - <code>submit()</code> method is called. It runs validation for all fields and if no errors - submits to server.<br>
+ Two callbacks <code>success</code> and <code>error</code> are passed into <code>submit()</code>.
+ Success applied if <strong>http response = 200 OK</strong>, otherwise called error.<br>
+ Inside <code>success</code> you can update editables with new <code>pk</code> received from server and they will start working in regular way (submit individually).<br>
+ </p>
+ <p><strong>Save button click:</strong></p>
+<pre class="prettyprint linenums">$(&#x27;#save-btn&#x27;).click(function() {
+   $(&#x27;.myeditable&#x27;).editable(&#x27;submit&#x27;, { 
+       url: &#x27;/newuser&#x27;, 
+       ajaxOptions: {
+           dataType: &#x27;json&#x27; //assuming json response
+       },           
+       success: function(data, config) {
+           if(data &amp;&amp; data.id) {  //record created, response like {&quot;id&quot;: 2}
+               //set pk
+               $(this).editable(&#x27;option&#x27;, &#x27;pk&#x27;, data.id);
+               //remove unsaved class
+               $(this).removeClass(&#x27;editable-unsaved&#x27;);
+               //show messages
+               var msg = &#x27;New user created! Now editables submit individually.&#x27;;
+               $(&#x27;#msg&#x27;).addClass(&#x27;alert-success&#x27;).removeClass(&#x27;alert-error&#x27;).html(msg).show();
+               $(&#x27;#save-btn&#x27;).hide(); 
+               $(this).off(&#x27;save.newuser&#x27;);                     
+           } else if(data &amp;&amp; data.errors){ 
+               //server-side validation error, response like {&quot;errors&quot;: {&quot;username&quot;: &quot;username already exist&quot;} }
+               config.error.call(this, data.errors);
+           }               
+       },
+       error: function(errors) {
+           var msg = &#x27;&#x27;;
+           if(errors &amp;&amp; errors.responseText) { //ajax error, errors = xhr object
+               msg = errors.responseText;
+           } else { //validation error (client-side or server-side)
+               $.each(errors, function(k, v) { msg += k+&quot;: &quot;+v+&quot;&lt;br&gt;&quot;; });
+           } 
+           $(&#x27;#msg&#x27;).removeClass(&#x27;alert-success&#x27;).addClass(&#x27;alert-error&#x27;).html(msg).show();
+       }
+   });
+});</pre>    
+<p>There are three possible error scenarios:</p>
+<ul>
+    <li>
+        <strong>client-side validation error</strong><br>
+         <code>error</code> callback applied with parameter containing field names and errors. E.g.
+        <pre class="prettyprint linenums">error: function(data) {
+// data is: { username: &#x27;Required field!&#x27; }
+...
+}</pre>
+    </li>
+    <li>
+        <strong>server-side validation error</strong><br>
+        In that case response status is <strong>200 OK</strong> but it's body contains error information.<br>
+        Initially <code>success</code> is called, but you can check response inside and if needed apply <code>error</code> (see example above).<br>
+        To do it simply there is second parameter of success that is exactly config object.
+        <pre class="prettyprint linenums">success: function(data, config) {
+   if(data.id) {  //record created, response like {&quot;id&quot;: 2}
+       //proceed success...       
+   } else if(data.errors){ 
+       //server-side validation error, response like {&quot;errors&quot;: {&quot;username&quot;: &quot;username already exist&quot;} }
+       //call error 
+       config.error.call(this, data.errors);
+   }               
+}</pre>        
+    </li> 
+    <li>
+        <strong>ajax error, http status != 200</strong><br>
+        <code>error</code> callback called with xhr object as parameter.
+    </li>
+</ul>
+
+<br>
+<p><strong>Reset button click:</strong></p>
+<pre class="prettyprint linenums">$(&#x27;#reset-btn&#x27;).click(function() {
+    $(&#x27;.myeditable&#x27;).editable(&#x27;setValue&#x27;, null)  //clear values
+        .editable(&#x27;option&#x27;, &#x27;pk&#x27;, null)          //clear pk
+        .removeClass(&#x27;editable-unsaved&#x27;);        //remove bold css
+                   
+    $(&#x27;#save-btn&#x27;).show();
+    $(&#x27;#msg&#x27;).hide();                
+});</pre>
+
+
+<br>
+<div class="alert alert-success">
+<strong>Note:</strong> you can use this approach not only for creating new record but also for submitting several fields of existing record at once.
+</div>
+        </section>
+       
+        <hr>
+        <section id="backend">
+            <h1>Backend samples</h1>   
+             <p>X-editable has no limitation to backend side, you can write it on any language you prefer.<br> 
+    For easy starting have a look on sample projects below:</p>
+<ul>
+    <li><a href="https://github.com/vitalets/x-editable/tree/gh-pages/backend-samples/php" target="_blank">Pure PHP</a></li>
+    <li><a href="https://github.com/vitalets/x-editable/blob/gh-pages/backend-samples/php/laravel-controller.php" target="_blank">Laravel controller</a> <small class="muted">(thanks to <a href="https://github.com/clouddueling">@clouddueling</a>)</small></li>
+</ul>
+
+<p class="muted"><small>
+        If you'd like to share you sample please feel free to send pull request on <code>gh-pages-dev</code> branch.
+    </small>
+</p> 
+        </section>       
+       
+        <hr>
+        <section id="diagram">
+            <h1>Class diagram</h1>    
+            <p>Here a short description how it works internally helping you to extend library for your needs.<br>
+There are a few classes working together for editable. Base class <b>editableform</b> is form with single input and two buttons. Input can be one of several <b>input types</b> (text, textarea, etc).
+Form <b>markup</b> is performed in plain HTML or can be extended by some library (bootstrap, jquery-ui).
+<b>editableContainer</b> includes editableform and shows it in <b>popup</b> or <b>inline</b> mode. When popup it can use any container for display (popover, tooltip, etc).
+Final class <b>editable</b> binds editableContainer to DOM element storing value and being updated after user submits new value.
+</p>
+<p style="text-align: center">
+<img src="assets/img/diagram.png">
+</p>
+        </section>
+        <br>        
+        <p>If you have questions, ideas or find a bug - please feel free to open issue on <a href="http://github.com/vitalets/x-editable/issues" target="_blank">X-editable github page</a>.</p>
+    </div>
+</div>
+            
+            <footer class="footer">
+            <hr>
+                <p><a href="http://vitalets.github.com/x-editable">X-editable</a> &copy; Vitaliy Potapov 2012. Released under the MIT license.</p> 
+            </footer>
+        </div> <!--/container-->
+        
+        <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter18329314 = new Ya.Metrika({id:18329314,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/18329314" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+        
+        <!-- main.js -->
+        <script src="assets/main.js"></script>
+    </body>
+</html>

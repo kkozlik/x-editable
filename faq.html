@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>X-editable :: In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery</title>
+        <!-- jquery -->
+        <script src="assets/jquery/jquery-1.9.1.min.js"></script>
+
+        <!-- bootstrap -->
+        <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">  
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+
+        <!-- prettify -->  
+        <link rel="stylesheet" href="assets/prettify/prettify-bootstrap.css">    
+        <script src="assets/prettify/prettify.js"></script> 
+
+        <!-- in docs page include bootstrap-editable for creating new record example -->
+        
+        
+        <!-- main css -->  
+        <link rel="stylesheet" href="assets/main.css">     
+    </head>
+    <body>
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a href="index.html" class="brand">X-editable</a>
+            <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a target="_blank" href="demo-bs3.html">Demo</a></li>
+                <li><a href="docs.html">Docs</a></li>
+                <li class="active"><a href="faq.html">FAQ</a></li>
+                <li><a href="http://github.com/vitalets/x-editable">GitHub</a></li>
+            </ul>
+           
+            <div style="padding-top: 10px;">
+            <!-- twitter -->
+<div class="pull-right" style="width: 90px; margin-right: 20%">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://vitalets.github.com/x-editable" data-via="xeditable">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>            
+</div>
+
+<!-- facebook -->
+<div class="pull-right" style="width: 90px">
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=558710054143871";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<div style="vertical-align:top;zoom:1;*display:inline" class="fb-like" data-href="http://vitalets.github.com/x-editable" data-send="false" data-layout="button_count" data-width1="450" data-show-faces="false"></div>
+</div>
+
+<!-- google+ -->
+<div class="pull-right" style="width: 80px">
+<div class="g-plusone" data-size="medium" data-href="http://vitalets.github.com/x-editable"></div>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>   
+            </div>
+ 
+        </div>  
+    </div>
+</div> 
+
+        
+        
+
+        <div class="container">
+        
+            <div class="row" style="margin-top: 60px;">
+    <div class="span12">
+        <h1>Frequently Asked Questions</h1>
+        <hr>
+
+        <h3>What should be on backend side?</h3>
+        <p>X-editable has no limitation to backend side, you can write it on any server language you prefer.<br>
+        The common logic is: </p>
+        <ol>
+         <li>read <code>pk</code>, <code>name</code> and <code>value</code> from request (POST by default).</li>
+         <li>Validate value:</li>
+         <li>If <span style="color: red">validation failed</span> - return HTTP status != 200 (e.g. <i>400 Bad Request</i>) and error message in response body.</li>
+         <li>If <span style="color: green">validation succeed</span> - update object in database and return HTTP status = 200 with empty body.</li>
+
+        </ol>
+        <hr>
+
+        <h3>Data is not submitted to server! Why?</h3>
+        <p>The most possible reason is that you have empty <code>pk</code> or <code>url</code> options.<br> 
+        If you want to submit data without pk please set <code>send</code> option to <code>"always"</code>.   
+        </p>
+        <p>Also form is not submitted if you did not change value. To manage this behavior see <code>savenochange</code> option.</p>
+        <hr>
+        
+        <h3>How to change what is submitted to server?</h3>
+        <p>You may define <code>params</code> as function:</p> 
+        <pre>
+$('#field').editable({
+  ...        
+  params: function(params) {  //params already contain `name`, `value` and `pk`
+    var data = {};
+    data['id'] = params.pk;
+    data[params.name] = params.value;
+    return data;
+  }
+}); 
+</pre>
+        <hr>
+        
+        <h3>How to submit stringified JSON?</h3>
+        <p>You may define <code>params</code> as function and make conversion there:</p> 
+        <pre>
+//submit in JSON format        
+$('#field').editable({
+  ...        
+  params: function(params) {
+    return JSON.stringify(params);  //note: for older browsers you may need json2.js from json.org
+  }
+});  
+</pre>
+        <hr>  
+        
+        <h3>How to customize editable element style?</h3>
+        <p>Overwrite css classes, e.g.</p> 
+        <pre>
+a.editable-click {
+  color: green;
+  border-color: green;
+} 
+a.editable-click.editable-disabled {
+  color: black;  
+  border-bottom: none;
+}
+a.editable-empty
+  color: gray;
+  font-style: italic;
+}
+</pre>
+
+        <hr>       
+        
+        <h3>How to create my own widgets / complex form?</h3>
+        <p>
+        <p>To create new input type (widget) just have a look on sources in <a href="https://github.com/vitalets/x-editable/tree/master/src/inputs">inputs directory</a>.<br>All inputs a derived from <code>abstract.js</code>, code is commented.
+
+</p>
+<p>I&#39;m very often asked how to create complex widgets like <a href="https://github.com/vitalets/x-editable/blob/master/src/inputs-ext/address/address.js">address input</a>:<br>Please consider, that <strong>x-editable main power is quick edit of single value that is stored in single database field</strong>.<br>If you want to have full featured form with several fields, just render it in hidden DIV and display by click. You don&#39;t need x-editable for that.</p>
+   
+        </p>
+        <hr>        
+        
+        <a name="donation"></a>
+        <h3>How can I support development of X-editable?</h3>
+        <p>All your ideas and feedback are very appreciated! Please feel free to open issues on <a href="http://github.com/vitalets/x-editable/issues">github</a> or send me <a href="mailto:noginsk@rambler.ru">email</a>.</p>
+        <p>I'm also grateful for your donations:</p>
+        
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="323QN8B6N4LN6">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<!--        <img alt="" border="0" src="https://www.paypalobjects.com/ru_RU/i/scr/pixel.gif" width="1" height="1">-->
+        </form>
+        
+        <p>or via Gtitip:
+          <script data-gittip-username="vitalets" data-gittip-widget="button" src="//gttp.co/v1.js"></script>
+        </p>
+        
+
+        <p>Thank you!</p>
+        <p><strong>List of donators:</strong></p>
+        <ul>
+          <li>David Aronchick - $25</li>
+          <li>yolcu-iskender.com - $13</li>
+          <li>Ian Mayo - $50</li>
+          <li>Rene van de Peppel - $25</li>
+          <li>Nihad Hafiz - $20</li>
+          <li>Divan Moller - $15</li>
+          <li>Csstech - $100</li>
+          <li>Tony Dark - $40</li>
+          <li>Clint Morgan - $50</li>
+          <li>Alexander Galkin - $5</li>
+          <li>Kirsty Forrester - $50</li>
+          <li>Sébastien Arbogast - $20</li>
+          <li>Tony Dew - $50</li>
+        </ul>
+    </div>
+</div>
+            
+            <footer class="footer">
+            <hr>
+                <p><a href="http://vitalets.github.com/x-editable">X-editable</a> &copy; Vitaliy Potapov 2012. Released under the MIT license.</p> 
+            </footer>
+        </div> <!--/container-->
+        
+        <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter18329314 = new Ya.Metrika({id:18329314,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/18329314" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+        
+        <!-- main.js -->
+        <script src="assets/main.js"></script>
+    </body>
+</html>

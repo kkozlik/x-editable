@@ -1,0 +1,119 @@
+<ol>
+<li>Decide which core library you want to use: 
+<ul>
+<li><strong>Bootstrap</strong></li>
+<li><strong>jQuery UI</strong></li>
+<li><strong>only jQuery (+ Poshytip)</strong></li>
+</ul>
+<br>
+<p>Include it on your page. Examples below are for <i>bootstrap</i>:</p> 
+{{#source}}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>           
+{{/source}}
+</li>
+<li>Download corresponding X-editable build and include it on your page:<br>
+{{#source}}
+<link href="bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="bootstrap-editable/js/bootstrap-editable.js"></script> 
+{{/source}}
+<div class="alert alert-warning"><b>Note to include x-editable <u>after core library</u> (bootstrap, jquery-ui)!</b></div>
+</li>
+<li>Markup elements that should be editable. Usually it is <code>&lt;A&gt;</code> element with additional <code>data-*</code> attributes
+{{#source}}                                                                                                            
+<a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">superuser</a>
+{{/source}}
+Main attributes you should define are:
+<ul>
+<li><code>type</code> - type of input (text, textarea, select, etc)</li>
+<li><code>url</code> - url to server-side script to process submitted value (<code>/post</code>, <code>post.php</code> etc)</li>
+<li><code>pk</code> - primary key of record to be updated (ID in db)</li>
+<li><code>id</code> or <code>name</code> - name of field to be updated (column in db). Taken from <code>id</code> or <code>data-name</code> attribute</li>
+<li><code>value</code> - initial value. Usefull for select, where value is integer key of text to be shown. If <i>empty</i> - will be taken from element html contents</li>
+</ul>
+<br>
+</li>
+<li>Setup editable mode: <strong>inline</strong> or <strong>popup</strong> (default)
+{{#source}}
+//turn to inline mode
+$.fn.editable.defaults.mode = 'inline'; 
+{{/source}}
+</li>
+<li>Apply <strong>editable()</strong> method to these elements
+{{#source}}
+$(document).ready(function() {
+    $('#username').editable();
+});
+{{/source}}                                               
+Alternatively, you can set all options via javascript
+{{#source}}
+<a href="#" id="username">superuser</a>   
+{{/source}}
+{{#source}}
+$('#username').editable({
+    type: 'text',
+    pk: 1,
+    url: '/post',
+    title: 'Enter username'
+});
+{{/source}}                                                          
+</li>
+<li>Frontend ready!<br>
+<p>
+<a href="starter" class="btn btn-primary" target="_blank">View starter template</a>
+<a href="assets/x-editable_starter.zip" class="btn btn-success">Download starter zip</a>
+</p>
+<p>
+Open your page and click on element. Enter new value and submit form. It will send ajax request with new value to <code>/post</code>.<br>
+Request contains <code>name</code>, <code>value</code> and <code>pk</code> of record to be updated:<br><br>
+{{#source}}
+POST /post
+{
+    name:  'username',  //name of field (column in db)
+    pk:    1            //primary key (record id)
+    value: 'superuser!' //new value
+}
+{{/source}}
+</p>
+</li>
+<li>Write backend part:<br>
+X-editable has no limitation to server-side part: you can write it on any language you prefer.<br>
+For example, you want to validate submitted value on server:
+<ul> 
+<li>If value is <span style="color: green">valid</span>, you should return <strong>HTTP status 200 OK</strong>. Element on page will be updated automatically. No response body required.</li>
+<li>If value is <span style="color: red">not valid</span>, you should return <strong>HTTP status != 200</strong> (e.g. <i>400 Bad request</i>) with error message in response body. Element on page will not be updated and editable form will display error message.</li>
+</ul>
+<br>
+Default request method is <strong>POST</strong>, you can change it via <i>defaults</i> config:<br>
+{{#source}}
+$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+{{/source}}
+
+<strong>JSON response:</strong><br>
+If your server returns JSON, you can always send HTTP status 200 with error flag in response body.<br>
+To process it use <code>success</code> handler:<br>
+{{#source}}
+//assume server response: 200 Ok {status: 'error', msg: 'field cannot be empty!'}
+
+$('#username').editable({
+    ...
+    success: function(response, newValue) {
+        if(response.status == 'error') return response.msg; //msg will be shown in editable form
+    }
+});
+{{/source}}
+<br>
+<strong>Work LOCALLY:</strong><br>
+If you don't want to send value on server, just keep empty <code>url</code> option. You can process value in <code>success</code> handler:
+{{#source}}
+$('#username').editable({
+    type: 'text',
+    title: 'Enter username',
+    success: function(response, newValue) {
+        userModel.set('username', newValue); //update backbone model
+    }
+});
+{{/source}}  
+</li>
+</ol>

@@ -1,0 +1,45 @@
+body {
+/*    padding-top: 60px;*/
+    padding-bottom: 40px;
+}
+
+
+.centered {
+    text-align: center;
+}
+
+.hero-unit {
+    margin-top: 60px;
+    padding: 40px;  
+}
+
+section {
+    padding-top: 85px;
+}
+
+.table td ul {
+   padding-bottom: 0; 
+}
+
+.cdn label {
+    display: inline;
+    vertical-align: middle;
+    margin-left: 20px;
+}
+
+
+.cdn input[type="radio"] {
+    margin: 0 4px 0 0;
+}
+
+.cdn pre {
+    margin: 0;
+}
+
+.angular-xeditable {
+    background: url('img/angular32.jpeg') left center no-repeat;
+    padding-left: 40px;
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+}

@@ -1,0 +1,59 @@
+startdir=$(pwd)
+
+if [ $(expr match $1 ".*data.*") -gt 0 ] 
+then
+  inputs=..\\lib\\src\\inputs
+  ext=..\\lib\\src\\inputs-ext
+  yuidoc -p -o generator/data -x $inputs\\dateui\\jquery-ui-datepicker,$ext\\address,$ext\\wysihtml5\\bootstrap-wysihtml5-0.0.2,$inputs\\combodate\\lib,$inputs\\select2\\lib  ../lib/src
+fi
+
+if [ $(expr match $1 ".*dist.*") -gt 0 ] 
+then
+  #clear
+  rm -rf assets/x-editable/**
+  
+  #copy dist
+  cp -R ../lib/dist/** assets/x-editable  
+  
+  echo dist copied!
+fi
+
+if [ $(expr match $1 ".*zip.*") -gt 0 ] 
+then
+  #starter
+  cd starter
+  zipfile=../assets/x-editable_starter.zip
+  rm -f $zipfile
+  zip -rT $zipfile *.*
+  cd ..
+
+  #dist zip
+  version=$(head -1 assets/x-editable/bootstrap-editable/js/bootstrap-editable.js | sed -n 's/^.*v\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/p') 
+  mkdir -p assets/zip 
+  cd assets/x-editable
+  files="LICENSE-MIT README.md CHANGELOG.txt inputs-ext"
+  
+  zipfile=../zip/bootstrap-editable-$version.zip
+  rm -f $zipfile
+  zip -rT $zipfile bootstrap-editable $files
+
+  zipfile=../zip/jqueryui-editable-$version.zip
+  rm -f $zipfile
+  zip -rT $zipfile jqueryui-editable $files
+
+  zipfile=../zip/jquery-editable-$version.zip
+  rm -f $zipfile
+  zip -rT $zipfile jquery-editable $files
+  
+  zipfile=../zip/bootstrap3-editable-$version.zip
+  rm -f $zipfile
+  zip -rT $zipfile bootstrap3-editable $files
+  
+  cd $startdir 
+fi
+
+if [ $(expr match $1 ".*docs.*") -gt 0 ] 
+then
+  node generator/makedocs.js
+fi
+

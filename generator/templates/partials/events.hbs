@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10%;">Event</th>
+            <th style="width: 30%;">Callback parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      {{#each event}}
+        <tr>
+            <td>{{name}}{{new ../project.version}} {{since}}</td>
+            <td>{{#with params}}{{>params}}{{/with}}</td>
+            <td>{{md description}}
+            {{#if example}}
+                {{#source}}
+                    {{{example}}}
+                {{/source}}
+            {{/if}}
+            </td>
+        </tr> 
+       {{/each}}                             
+    </tbody>
+</table>

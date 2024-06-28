@@ -1,0 +1,120 @@
+<div class="row" style="margin-top: 60px;">
+    <div class="span12">
+        <h1>Frequently Asked Questions</h1>
+        <hr>
+
+        <h3>What should be on backend side?</h3>
+        <p>X-editable has no limitation to backend side, you can write it on any server language you prefer.<br>
+        The common logic is: </p>
+        <ol>
+         <li>read <code>pk</code>, <code>name</code> and <code>value</code> from request (POST by default).</li>
+         <li>Validate value:</li>
+         <li>If <span style="color: red">validation failed</span> - return HTTP status != 200 (e.g. <i>400 Bad Request</i>) and error message in response body.</li>
+         <li>If <span style="color: green">validation succeed</span> - update object in database and return HTTP status = 200 with empty body.</li>
+
+        </ol>
+        <hr>
+
+        <h3>Data is not submitted to server! Why?</h3>
+        <p>The most possible reason is that you have empty <code>pk</code> or <code>url</code> options.<br> 
+        If you want to submit data without pk please set <code>send</code> option to <code>"always"</code>.   
+        </p>
+        <p>Also form is not submitted if you did not change value. To manage this behavior see <code>savenochange</code> option.</p>
+        <hr>
+        
+        <h3>How to change what is submitted to server?</h3>
+        <p>You may define <code>params</code> as function:</p> 
+        <pre>
+$('#field').editable({
+  ...        
+  params: function(params) {  //params already contain `name`, `value` and `pk`
+    var data = {};
+    data['id'] = params.pk;
+    data[params.name] = params.value;
+    return data;
+  }
+}); 
+</pre>
+        <hr>
+        
+        <h3>How to submit stringified JSON?</h3>
+        <p>You may define <code>params</code> as function and make conversion there:</p> 
+        <pre>
+//submit in JSON format        
+$('#field').editable({
+  ...        
+  params: function(params) {
+    return JSON.stringify(params);  //note: for older browsers you may need json2.js from json.org
+  }
+});  
+</pre>
+        <hr>  
+        
+        <h3>How to customize editable element style?</h3>
+        <p>Overwrite css classes, e.g.</p> 
+        <pre>
+a.editable-click {
+  color: green;
+  border-color: green;
+} 
+a.editable-click.editable-disabled {
+  color: black;  
+  border-bottom: none;
+}
+a.editable-empty
+  color: gray;
+  font-style: italic;
+}
+</pre>
+
+        <hr>       
+        
+        <h3>How to create my own widgets / complex form?</h3>
+        <p>
+        {{#mdb}}
+To create new input type (widget) just have a look on sources in [inputs directory](https://github.com/vitalets/x-editable/tree/master/src/inputs).  
+All inputs a derived from `abstract.js`, code is commented.
+            
+I'm very often asked how to create complex widgets like [address input](https://github.com/vitalets/x-editable/blob/master/src/inputs-ext/address/address.js):    
+Please consider, that **x-editable main power is quick edit of single value that is stored in single database field**.  
+If you want to have full featured form with several fields, just render it in hidden DIV and display by click. You don't need x-editable for that.    
+        {{/mdb}}   
+        </p>
+        <hr>        
+        
+        <a name="donation"></a>
+        <h3>How can I support development of X-editable?</h3>
+        <p>All your ideas and feedback are very appreciated! Please feel free to open issues on <a href="http://github.com/vitalets/x-editable/issues">github</a> or send me <a href="mailto:noginsk@rambler.ru">email</a>.</p>
+        <p>I'm also grateful for your donations:</p>
+        
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="323QN8B6N4LN6">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<!--        <img alt="" border="0" src="https://www.paypalobjects.com/ru_RU/i/scr/pixel.gif" width="1" height="1">-->
+        </form>
+        
+        <p>or via Gtitip:
+          <script data-gittip-username="vitalets" data-gittip-widget="button" src="//gttp.co/v1.js"></script>
+        </p>
+        
+
+        <p>Thank you!</p>
+        <p><strong>List of donators:</strong></p>
+        <ul>
+          <li>David Aronchick - $25</li>
+          <li>yolcu-iskender.com - $13</li>
+          <li>Ian Mayo - $50</li>
+          <li>Rene van de Peppel - $25</li>
+          <li>Nihad Hafiz - $20</li>
+          <li>Divan Moller - $15</li>
+          <li>Csstech - $100</li>
+          <li>Tony Dark - $40</li>
+          <li>Clint Morgan - $50</li>
+          <li>Alexander Galkin - $5</li>
+          <li>Kirsty Forrester - $50</li>
+          <li>Sébastien Arbogast - $20</li>
+          <li>Tony Dew - $50</li>
+        </ul>
+    </div>
+</div>

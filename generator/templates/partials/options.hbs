@@ -1,0 +1,33 @@
+<p>
+Options can be defined via javascript <code>$().editable({...})</code> or via <code>data-*</code> html attributes.<br>
+{{#if mainClass}}
+Please see also <a href="#inputs">input dependent options</a>.<br>
+Additionally, you can use core options of popup from their docs: <a href="http://getbootstrap.com/javascript/#popovers">bootstrap-popover</a>, <a href="http://api.jqueryui.com/tooltip">jquery-ui-tooltip</a>.
+{{/if}} 
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 15%;">Name</th>
+            <th style="width: 15%;">Type</th>
+            <th style="width: 15%;">Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      {{#each property}}
+        <tr>
+            <td>{{name}}{{new ../project.version}} {{since}}</td>
+            <td>{{type}}</td>
+            <td>{{default}}</td>
+            <td>{{md description}}
+            {{#if example}}
+                {{#source}}
+                    {{{example}}}
+                {{/source}}
+            {{/if}}
+            </td>
+        </tr> 
+       {{/each}}                             
+    </tbody>
+</table>

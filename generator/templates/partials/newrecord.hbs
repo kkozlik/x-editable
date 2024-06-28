@@ -1,0 +1,160 @@
+<p>
+    Creating <strong>new record</strong> is a bit problem for editable interface because primary key (record id) is yet <i>unknown</i> and in-place-editing has no related object on backend.
+    In that case element will store new value inside and will not submit anything to server until you do it manually. 
+    Such behavior applied when <code>send</code> option is <code>'never'</code> or <code>send='auto'</code> and <code>pk</code> is empty.
+    To submit manually several editable fields use <code>submit()</code> method. Try example below to see how it works.
+</p>
+
+<script src="assets/newrecord.js"></script>         
+
+<h4>Live example - creating new record:</h4>
+<div style="width: 40%">
+    <div id="msg" class="alert hide"></div>
+    <table id="user" class="table table-bordered table-striped">
+        <tbody> 
+            <tr>         
+                <td width="40%">Username</td>
+                <td><a href="#" class="myeditable" id="new_username" data-type="text" data-name="username" data-original-title="Enter username"></a></td>
+            </tr>
+            <tr>         
+                <td>First name</td>
+                <td><a href="#" class="myeditable" data-type="text" data-name="firstname" data-original-title="Enter firstname"></a></td>
+            </tr>  
+            <tr>         
+                <td>Group</td>
+                <td><a href="#" class="myeditable" data-type="select" data-name="group" data-source="/groups" data-original-title="Select group"></a></td>
+            </tr>     
+            <tr>         
+                <td>Date of birth</td>
+                <td><a href="#" class="myeditable" data-type="date" data-name="dob" data-viewformat="dd/mm/yyyy" data-original-title="Select Date of birth"></a></td>
+            </tr>  
+            <tr>         
+                <td>Comments</td>
+                <td><a href="#" class="myeditable" data-type="textarea" data-name="comments" data-original-title="Enter comments"></a></td>
+            </tr> 
+        </tbody>
+    </table>
+    <div>
+    <button id="save-btn" class="btn btn-primary">Save new user!</button>
+    <button id="reset-btn" class="btn pull-right">Reset</button>
+    </div>
+</div>  
+
+<br>
+<p>How it works:</p>
+<p>Initialization performed without <code>pk</code> option:</p>
+{{#source}}
+//init editables 
+$('.myeditable').editable({
+    url: '/post' //this url will not be used for creating new user, it is only for update
+});
+
+//make username required
+$('#new_username').editable('option', 'validate', function(v) {
+    if(!v) return 'Required field!';
+});
+
+//automatically show next editable
+$('.myeditable').on('save.newuser', function(){
+    var that = this;
+    setTimeout(function() {
+        $(that).closest('tr').next().find('.myeditable').editable('show');
+    }, 200);
+});
+{{/source}}
+
+ <p>When you enter data first time - nothing sent to server, but all values are stored.<br>
+ When you click on save button - <code>submit()</code> method is called. It runs validation for all fields and if no errors - submits to server.<br>
+ Two callbacks <code>success</code> and <code>error</code> are passed into <code>submit()</code>.
+ Success applied if <strong>http response = 200 OK</strong>, otherwise called error.<br>
+ Inside <code>success</code> you can update editables with new <code>pk</code> received from server and they will start working in regular way (submit individually).<br>
+ </p>
+ <p><strong>Save button click:</strong></p>
+{{#source}}
+$('#save-btn').click(function() {
+   $('.myeditable').editable('submit', { 
+       url: '/newuser', 
+       ajaxOptions: {
+           dataType: 'json' //assuming json response
+       },           
+       success: function(data, config) {
+           if(data && data.id) {  //record created, response like {"id": 2}
+               //set pk
+               $(this).editable('option', 'pk', data.id);
+               //remove unsaved class
+               $(this).removeClass('editable-unsaved');
+               //show messages
+               var msg = 'New user created! Now editables submit individually.';
+               $('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
+               $('#save-btn').hide(); 
+               $(this).off('save.newuser');                     
+           } else if(data && data.errors){ 
+               //server-side validation error, response like {"errors": {"username": "username already exist"} }
+               config.error.call(this, data.errors);
+           }               
+       },
+       error: function(errors) {
+           var msg = '';
+           if(errors && errors.responseText) { //ajax error, errors = xhr object
+               msg = errors.responseText;
+           } else { //validation error (client-side or server-side)
+               $.each(errors, function(k, v) { msg += k+": "+v+"<br>"; });
+           } 
+           $('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
+       }
+   });
+});   
+{{/source}}    
+<p>There are three possible error scenarios:</p>
+<ul>
+    <li>
+        <strong>client-side validation error</strong><br>
+         <code>error</code> callback applied with parameter containing field names and errors. E.g.
+        {{#source}}
+error: function(data) {
+// data is: { username: 'Required field!' }
+...
+}
+        {{/source}}
+    </li>
+    <li>
+        <strong>server-side validation error</strong><br>
+        In that case response status is <strong>200 OK</strong> but it's body contains error information.<br>
+        Initially <code>success</code> is called, but you can check response inside and if needed apply <code>error</code> (see example above).<br>
+        To do it simply there is second parameter of success that is exactly config object.
+        {{#source}}
+success: function(data, config) {
+   if(data.id) {  //record created, response like {"id": 2}
+       //proceed success...       
+   } else if(data.errors){ 
+       //server-side validation error, response like {"errors": {"username": "username already exist"} }
+       //call error 
+       config.error.call(this, data.errors);
+   }               
+}
+        {{/source}}        
+    </li> 
+    <li>
+        <strong>ajax error, http status != 200</strong><br>
+        <code>error</code> callback called with xhr object as parameter.
+    </li>
+</ul>
+
+<br>
+<p><strong>Reset button click:</strong></p>
+{{#source}}
+$('#reset-btn').click(function() {
+    $('.myeditable').editable('setValue', null)  //clear values
+        .editable('option', 'pk', null)          //clear pk
+        .removeClass('editable-unsaved');        //remove bold css
+                   
+    $('#save-btn').show();
+    $('#msg').hide();                
+});
+{{/source}}
+
+
+<br>
+<div class="alert alert-success">
+<strong>Note:</strong> you can use this approach not only for creating new record but also for submitting several fields of existing record at once.
+</div>

@@ -1,45 +1,16 @@
-{
-  "name": "x-editable-bs5",
-  "title": "x-editable-bs5",
-  "description": "In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery",
-  "version": "1.5.8",
-  "homepage": "http://github.com/kkozlik/x-editable",
-  "author": {
-    "name": "Vitaliy Potapov",
-    "email": "noginsk@rambler.ru"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kkozlik/x-editable.git"
-  },
-  "bugs": {
-    "url": "https://github.com/kkozlik/x-editable/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/kkozlik/x-editable/blob/master/LICENSE-MIT"
-    }
-  ],
-  "scripts": {
-    "precommit": "grunt jshint",
-    "prepush": "grunt jshint",
-    "version": "grunt build && git add -A dist",
-    "postversion": "git push && git push --tags && npm publish"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-cli": "^1.4.3",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-connect": "~0.3.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-qunit": "~0.2.2",
-    "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.2",
-    "husky": "^0.14.3"
-  },
-  "keywords": []
+{ 
+    "name": "x-editable-docs",
+    "title": "X-editable docs",
+    "version": "1.0.0",
+       "homepage": "http://vitalets.github.com/x-editable",
+       "author": {
+           "name": "Vitaliy Potapov",
+           "email": "noginsk@rambler.ru"
+        },    
+    "dependencies": { 
+         "handlebars" : ">=1.0.7",
+         "underscore" : ">=1.4.2",
+         "marked" : ">=0.2.5",
+         "yuidocjs" : ">=0.3.33"
+    } 
 }

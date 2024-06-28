@@ -1,0 +1,16 @@
+<ul class="nav nav-tabs" id="{{name}}-tabs">
+    <li class="active"><a href="#{{name}}-options" data-toggle="tab">Options</a></li>
+    <li><a href="#{{name}}-methods" data-toggle="tab">Methods</a></li>
+    <li><a href="#{{name}}-events" data-toggle="tab">Events</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="{{name}}-options">
+        {{include "options" project=project}}
+    </div>
+    <div class="tab-pane" id="{{name}}-methods">
+        {{include "methods" project=project}}
+    </div>
+    <div class="tab-pane" id="{{name}}-events">
+        {{include "events" project=project}}
+    </div>
+</div>
